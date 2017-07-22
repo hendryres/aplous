@@ -1,0 +1,48 @@
+/*
+
+* Override Pages default styles or create your own styles here
+
+*/
+.btn-save
+	{
+	position: fixed!important;
+	z-index:99;
+	}
+.btn-rst
+	{
+	position: fixed!important;
+	z-index:99;
+	}
+@media (max-width: 767px) {
+	.btn-save{
+    top: 57px;
+    right: 15px;
+	
+	}
+	.btn-rst{
+    top: 57px;
+    right: 185px;
+	
+	}
+}
+
+@media (min-width: 768px) {
+	.btn-save{
+    top: 68px;
+    right: 155px;
+	}
+	.btn-rst{
+    top: 68px;
+    right: 50px;
+	}
+}
+.top-content{
+	width: 100%;
+	background-color: #f0f0f0!important;
+	position: fixed;
+	display: block;
+	z-index: 50;
+	border-bottom: 1px solid #eee;
+	
+	
+}
