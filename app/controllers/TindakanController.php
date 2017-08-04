@@ -10,7 +10,8 @@ class TindakanController extends ControllerBase
 	
     public function indexAction()
     {
-
+		$poli = Masterpoli::find();
+		$this->view->data=$poli;
     }
 
 }

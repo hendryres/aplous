@@ -48,6 +48,13 @@ class Irjdiagnosa extends \Phalcon\Mvc\Model
     public $tanggal;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", length=100, nullable=false)
+     */
+    public $poli;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

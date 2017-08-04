@@ -1,4 +1,4 @@
-a:3:{i:0;s:12061:"<!DOCTYPE html>
+a:3:{i:0;s:12874:"<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -13,7 +13,6 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
 	<?= $this->tag->stylesheetLink('assets/plugins/pace/pace-theme-flash.css') ?>
 	<?= $this->tag->stylesheetLink('assets/plugins/bootstrapv3/css/bootstrap.min.css') ?>
 	<?= $this->tag->stylesheetLink('assets/plugins/font-awesome/css/font-awesome.css') ?>
-	<?= $this->tag->stylesheetLink('assets/plugins/jquery-scrollbar/jquery.scrollbar.css', ['media' => 'screen']) ?>
 	<?= $this->tag->stylesheetLink('assets/plugins/jquery-scrollbar/jquery.scrollbar.css', ['media' => 'screen']) ?>
 	<?= $this->tag->stylesheetLink('assets/plugins/select2/css/select2.min.css', ['media' => 'screen']) ?>
 	<?= $this->tag->stylesheetLink('assets/plugins/switchery/css/switchery.min.css', ['media' => 'screen']) ?>
@@ -61,6 +60,14 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
 	<?= $this->tag->javascriptInclude('assets/plugins/bootstrap-typehead/typeahead.jquery.min.js') ?>
 	<?= $this->tag->javascriptInclude('assets/plugins/handlebars/handlebars-v4.0.5.js') ?>
 	<?= $this->tag->javascriptInclude('js/main.js') ?>
+	
+	<?= $this->tag->javascriptInclude('fatma/szcursor.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/sztoothcanvas.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/szposterioreyecanvas.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/szanterioreyecanvas.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/szoftalmologiscanvas.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/szblankcanvas.js') ?>
+	<?= $this->tag->javascriptInclude('fatma/hermite.js') ?>
   </body>
 	<script>
 	(function($){
@@ -99,7 +106,7 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
               <span class="title">Dashboard</span>
               <span class="details">12 New Updates</span>
             </a>
-            <span class="bg-success icon-thumbnail"><i class="pg-home"></i></span>
+            <span class="icon-thumbnail"><i class="pg-home"></i></span>
           </li>
           <li class="">
             <a href="pendaftaran" class="detailed">
@@ -109,15 +116,33 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
             <span class="icon-thumbnail">P</span>
           </li>
 		  <li class="">
-            <a href="tindakan" class="detailed">
-              <span class="title">Tindakan</span>
+            <a href="javascript:;"><span class="title">Tindakan Dokter</span>
+            <span class=" arrow"></span></a>
+            <span class="icon-thumbnail">T</span>
+			<ul class="sub-menu">
+				<?php foreach ($data as $poli) { ?>
+					<li class="">
+						<a id="<?= $poli->idpoli ?>" class="page" href="<?= $poli->idpoli ?>">
+							<span class="title"><i class="pg-folder"></i> <?= $poli->namapoli ?></span>
+						</a>
+					</li>
+				<?php } ?>            
+			</ul>
+          </li>
+		  <!--
+		  <li class="">
+            <a href="rekammedis" class="detailed">
+              <span class="title">Rekam Medis</span>
               <span class="details">1 items</span>
             </a>
-            <span class="icon-thumbnail">T</span>
+            <span class="icon-thumbnail">
+				<i class="fa fa-check-square-o"></i>
+			</span>
           </li>
+		  -->
 		  <li class="">
             <a href="master" class="detailed">
-              <span class="title">Master Data</span>
+              <span class="title">MD</span>
               <span class="details">1 items</span>
             </a>
             <span class="icon-thumbnail">M</span>
@@ -147,7 +172,7 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
           </div>
           <div class="pull-center hidden-md hidden-lg">
             <div class="header-inner">
-				<a href="#" class="toggle-secondary-sidebar">Inbox <span class="text-info">(12)</span> <span class="caret"></span></a>
+				
               <div class="brand inline">
                 <img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">
               </div>
@@ -187,6 +212,7 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
               <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="thumbnail-wrapper d32 circular inline m-t-5">
                 <img src="assets/img/profiles/avatar.jpg" alt="" data-src="assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="32" height="32">
+				
             </span>
               </button>
               <ul class="dropdown-menu profile-dropdown" role="menu">
@@ -214,25 +240,9 @@ a:3:{i:0;s:12061:"<!DOCTYPE html>
         <!-- START PAGE CONTENT -->
         <div class="content bg-white full-height p-b-0">
 			";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:5:"
-			";s:4:"file";s:53:"C:\xampp\htdocs\aplous/app/views/template/aplous.volt";s:4:"line";i:217;}}i:1;s:68936:"
+			";s:4:"file";s:53:"C:\xampp\htdocs\aplous/app/views/template/aplous.volt";s:4:"line";i:243;}}i:1;s:68086:"
         </div>
 		<!-- END PAGE CONTENT -->
-        <!-- START CONTAINER FLUID -->
-        <div class="container-fluid container-fixed-lg footer bg-white" style="position:fixed; z-index:1;">
-          <div class="copyright sm-text-center">
-            <p class="small no-margin pull-left sm-pull-reset">
-              
-            </p>
-            <p class="small no-margin pull-right sm-pull-reset">
-              <span class="hint-text">Copyright &copy; 2014 </span>
-              <span class="font-montserrat">PT. Meyra Pratama Mandiri</span>.
-              <span class="hint-text">All rights reserved. </span>
-              <span class="sm-block"><a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
-            </p>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <!-- END COPYRIGHT -->
       </div>
       <!-- END PAGE CONTENT WRAPPER -->
     </div>

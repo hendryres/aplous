@@ -1,6 +1,6 @@
 <?php
 
-class Irjobatruangan extends \Phalcon\Mvc\Model
+class Irjobat extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -76,14 +76,14 @@ class Irjobatruangan extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'irjobatruangan';
+        return 'irjobat';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Irjobatruangan[]|Irjobatruangan
+     * @return Irjobat[]|Irjobat
      */
     public static function find($parameters = null)
     {
@@ -94,7 +94,7 @@ class Irjobatruangan extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Irjobatruangan
+     * @return Irjobat
      */
     public static function findFirst($parameters = null)
     {

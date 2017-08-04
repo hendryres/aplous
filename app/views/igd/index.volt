@@ -265,8 +265,16 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn-save btn btn-primary btn-lg" type="submit" name="btnregister" id="btnregister"> Tambah</button>
-		<button class="btn-rst btn btn-info btn-lg" type="reset" name="reset">Reset</button>
+		<div class="input-group">
+		<button class="btn-save btn btn-primary btn-lg visible-lg"  type="submit" name="btnregister" id="btnregister"> Tambah</button>
+		<button class="btn-rst btn btn-info btn-lg visible-lg" type="reset" name="reset">Reset</button>
+		</div>
+		<!-- START COMPOSE BUTTON FOR TABS -->
+        <div class="compose-wrapper visible-xs">
+            <button class="compose-email text-info pull-right m-r-10 m-t-10" type="submit" name="btnregister" id="btnregister"><i class="fa fa-pencil-square-o"></i></button>
+			<button class="compose-email text-info pull-right m-r-10 m-t-10" type="reset" name="btnreset" id="btnreset"><i class="fa fa-refresh"></i></button>
+        </div>
+        <!-- END COMPOSE BUTTON -->
 	</form>
  <script type="text/javascript">
  function simpan()

@@ -18,7 +18,7 @@
         $("#multi").val(["Jim", "Lucy"]).select2();
 
         //Date Pickers
-        $('#datepicker-range, #datepicker-component, #datepicker-component2, #dtptanggallahir, #dtptanggal').datepicker();
+        $('#datepicker-range, #datepicker-component, #datepicker-component2').datepicker();
 
         $('#datepicker-embeded').datepicker({
             daysOfWeekDisabled: "0,1"

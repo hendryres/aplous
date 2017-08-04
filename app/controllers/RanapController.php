@@ -10,7 +10,9 @@ class RanapController extends ControllerBase
 	
     public function indexAction()
     {
-		
+		/* menu poli */
+		$poli = Masterpoli::find();
+		$this->view->data=$poli;
     }
 	public function modalAction()
     {

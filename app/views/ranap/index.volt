@@ -22,23 +22,17 @@
     </div>
     <!-- END JUMBOTRON -->
 	 <!-- Modal -->
-         <div class="modal fade fill-in" id="modalFillIn" tabindex="-1" role="dialog" aria-hidden="true">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+         <div class="modal fade fill-in" style="background-color: rgba(255, 255, 255, 1);" id="modalFillIn" tabindex="-1" role="dialog" aria-hidden="true">
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
               <i class="pg-close"></i>
-            </button>
-            <div class="modal-dialog" style="width:100%">
+            </button>-->
+            <div class="modal-dialog bg-white" style="width:100%; height:100%;">
 			
               <div class="modal-content">
                 <div class="modal-header">
 					<div class="panel panel-transparent">
 						<div class="panel-heading">
 							<div class="panel-title">Data Penanggung Jawab
-							</div>
-							<div class="tools">
-								<a class="collapse" href="javascript:;"></a>
-								<a class="config" data-toggle="modal" href="#grid-config"></a>
-								<a class="reload" href="javascript:;"></a>
-								<a class="remove" href="javascript:;"></a>
 							</div>
 						</div>
 					</div>
@@ -110,10 +104,10 @@
 							<label>Penanggung Jawab</label>
 							<input type="text" class="form-control" name="txtpenanggungjawab" />
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary btn-sm" data-target="#modalFillIn" data-toggle="modal" id="btnFillSizeToggler" onclick="kirimmodal();return false;">
+								<button type="button" class="btn btn-default btn-sm" data-target="#modalFillIn" data-toggle="modal" id="btnFillSizeToggler" onclick="kirimmodal();return false;">
 									<span class="ace-icon fa fa-plus icon-on-right bigger-110"></span>
 								</button>
-								<button type="button" class="btn btn-primary btn-sm">
+								<button type="button" class="btn btn-default btn-sm">
 									<span class="ace-icon fa fa-pencil icon-on-right bigger-110"></span>
 								</button>
 							</span>
@@ -268,9 +262,15 @@
 			</div>
 		</div>
 		<div class="input-group">
-		<button class="btn-save btn btn-primary btn-lg"  type="submit" name="btnregister" id="btnregister"> Tambah</button>
-		<button class="btn-rst btn btn-info btn-lg" type="reset" name="reset">Reset</button>
+		<button class="btn-save btn btn-primary btn-lg visible-lg"  type="submit" name="btnregister" id="btnregister"> Tambah</button>
+		<button class="btn-rst btn btn-info btn-lg visible-lg" type="reset" name="reset">Reset</button>
 		</div>
+		<!-- START COMPOSE BUTTON FOR TABS -->
+        <div class="compose-wrapper visible-xs">
+            <button class="compose-email text-info pull-right m-r-10 m-t-10" type="submit" name="btnregister" id="btnregister"><i class="fa fa-pencil-square-o"></i></button>
+			<button class="compose-email text-info pull-right m-r-10 m-t-10" type="reset" name="btnreset" id="btnreset"><i class="fa fa-refresh"></i></button>
+        </div>
+        <!-- END COMPOSE BUTTON -->
 	</form>
  <script type="text/javascript">
  function simpan()

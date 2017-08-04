@@ -10,7 +10,9 @@ class TindakanirjController extends ControllerBase
 	
     public function indexAction()
     {
-
+		/* menu poli */
+		$poli = Masterpoli::find();
+		$this->view->data=$poli;
     }
 	
 	public function simpantindakanAction()
@@ -103,6 +105,25 @@ class TindakanirjController extends ControllerBase
 		$usr->nosep = $this->request->getPost("txtnosep");
 		$usr->dokter = $this->request->getPost("txtdokter");
 		$usr->tanggalrujuk = $this->request->getPost("dtptanggal");
+		//$success = $usr->save($this->request->getPost(), array('modName', 'link', 'icon', 'urutan'));
+		   
+		if ( !$usr->save() ) {
+			echo 0;
+		}
+		else
+		{
+			echo 1;
+		}
+	}
+	
+	public function simpanstatusAction()
+	{
+		$usr = new Irjstatus();
+		$usr->rm = $this->request->getPost("txtrm");
+		$usr->jamkeluar = $this->request->getPost("dtpjamkeluar");
+		$usr->status = $this->request->getPost("cmbstatus");
+		$usr->alasankeluar = $this->request->getPost("cmbalasankeluar");
+		$usr->keadaankeluar = $this->request->getPost("cmbkeadaankeluar");
 		//$success = $usr->save($this->request->getPost(), array('modName', 'link', 'icon', 'urutan'));
 		   
 		if ( !$usr->save() ) {
@@ -256,6 +277,35 @@ class TindakanirjController extends ControllerBase
 		}
 		$result['list'] = $result['emails'];
 		$result['group'] = 'Rujuk';
+		echo json_encode($result); exit;
+    }
+	
+	public function lihatstatusAction()
+    {
+		$idrm=$this->request->getPost('idrm');
+		//$filter = array('rm' => $id);
+		$usr = Irjstatus::find();
+		$articles = Irjstatus::find("rm = '$idrm'");
+		//$this->view->data=$usr;
+		$result = array();
+		//$data = [];
+		foreach ($articles as $user) {
+			
+		   $result['emails'][] = array(
+				"id" => $user->id,
+				"subject" => $user->status,
+				"to"=> ["David Nester"],
+				"body"=> "Data details ",
+				"time"=> "5 Mins ago",
+				"datetime" => "Today at 1:33pm",
+				"from"=> "David Nester",
+				"dp"=> "assets/img/profiles/avatar.jpg",
+				"dpRetina"=> "assets/img/profiles/avatar2x.jpg"
+				);
+				
+		}
+		$result['list'] = $result['emails'];
+		$result['group'] = 'Status';
 		echo json_encode($result); exit;
     }
 }

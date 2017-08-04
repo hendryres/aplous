@@ -21,9 +21,9 @@
     </div>
     <!-- END JUMBOTRON -->
 			<form name="frmpendaftaran" id="frmpendaftaran" method="post" class="frmpendaftaran" onsubmit="simpan();return false;" enctype="multipart/form-data">
-				<div class="panel panel-transparent"><!-- START PANEL -->
-					<div class="panel-heading">
-						<div class="panel-title">Data Pasien
+				<div class="card card-default"><!-- START PANEL -->
+					<div class="card-header">
+						<div class="card-title"><h5><b>Data Pasien</b></h5>
 						</div>
 						<div class="tools">
 							<a class="collapse" href="javascript:;"></a>
@@ -32,7 +32,7 @@
 							<a class="remove" href="javascript:;"></a>
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required ">
@@ -137,8 +137,8 @@
 						</div>
 					</div>
 				
-					<div class="panel-heading">
-						<div class="panel-title">Data Alamat
+					<div class="card-header">
+						<div class="card-title"><h5><b>Data Alamat</b></h5>
 						</div>
 						<div class="tools">
 							<a class="collapse" href="javascript:;"></a>
@@ -147,7 +147,7 @@
 							<a class="remove" href="javascript:;"></a>
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
@@ -221,8 +221,8 @@
 						</div>
 					</div>
 				
-					<div class="panel-heading">
-						<div class="panel-title">Data Keluarga
+					<div class="card-header">
+						<div class="card-title"><h5><b>Data Keluarga</b></h5>
 						</div>
 						<div class="tools">
 							<a class="collapse" href="javascript:;"></a>
@@ -231,7 +231,7 @@
 							<a class="remove" href="javascript:;"></a>
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
@@ -258,8 +258,8 @@
 						</div>
 					</div>
 				
-					<div class="panel-heading">
-						<div class="panel-title">Data Kontak
+					<div class="card-header">
+						<div class="card-title"><h5><b>Data Kontak</b></h5>
 						</div>
 						<div class="tools">
 							<a class="collapse" href="javascript:;"></a>
@@ -268,7 +268,7 @@
 							<a class="remove" href="javascript:;"></a>
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
@@ -295,8 +295,8 @@
 						</div>
 					</div>	
 				
-					<div class="panel-heading">
-						<div class="panel-title">Data Pekerjaan
+					<div class="card-header">
+						<div class="card-title"><h5><b>Data Pekerjaan</b></h5>
 						</div>
 						<div class="tools">
 							<a class="collapse" href="javascript:;"></a>
@@ -305,7 +305,7 @@
 							<a class="remove" href="javascript:;"></a>
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
@@ -327,19 +327,21 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel-heading">
-						<div class="panel-title">
-						</div>
-						<div class="tools">
-							<a class="collapse" href="javascript:;"></a>
-							<a class="config" data-toggle="modal" href="#grid-config"></a>
-							<a class="reload" href="javascript:;"></a>
-							<a class="remove" href="javascript:;"></a>
+					<div class="card-header">
+						<div class="card-title">
 						</div>
 					</div>
 				</div><!-- END PANEL -->
-				<button class="btn-save btn btn-primary btn-lg" type="submit" name="btnregister" id="btnregister"> Tambah</button>
-				<button class="btn-rst btn btn-info btn-lg" type="reset" name="reset">Reset</button>
+				<div class="input-group">
+				<button class="btn-save btn btn-primary btn-lg visible-lg"  type="submit" name="btnregister" id="btnregister"> Tambah</button>
+				<button class="btn-rst btn btn-info btn-lg visible-lg" type="reset" name="reset">Reset</button>
+				</div>
+				<!-- START COMPOSE BUTTON FOR TABS -->
+				<div class="compose-wrapper visible-xs">
+					<button class="compose-email text-info pull-right m-r-10 m-t-10" type="submit" name="btnregister" id="btnregister"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="compose-email text-info pull-right m-r-10 m-t-10" type="reset" name="btnreset" id="btnreset"><i class="fa fa-refresh"></i></button>
+				</div>
+				<!-- END COMPOSE BUTTON -->
 			</form>
  <script type="text/javascript">
  function simpan()
