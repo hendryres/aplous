@@ -106,8 +106,10 @@
         //e.stopPropagation();
 		e.preventDefault();
 			var link =$(this).attr("id");
-			document.getElementById('div_input').style.display = 'block';
-			document.getElementById("list_patient").innerHTML="";
+			$("#div_input").show();
+			$("#list_patient").empty();
+			/* document.getElementById('div_input').style.display = 'block';
+			document.getElementById("list_patient").innerHTML=""; */
 			$("#btninput").val(link);
 			var emailList = $('#list_patient');
 			var idrm = $("input[name='rmid']").val();
