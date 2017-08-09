@@ -68,6 +68,7 @@
 	{{ javascript_include('fatma/szoftalmologiscanvas.js') }}
 	{{ javascript_include('fatma/szblankcanvas.js') }}
 	{{ javascript_include('fatma/hermite.js') }}
+	{{ javascript_include('js/Underscore.js') }}
   </body>
 	<script>
 	(function($){
@@ -193,7 +194,7 @@
         <div class=" pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
-              <img src="{{ url('assets/img/logoMpm.png') }}" alt="logo" data-src="{{ url('assets/img/logoMpm.png') }}" data-src-retina="{{ url('assets/img/logoMpm.png') }}" width="78" height="22">
+              <!--<img src="{{ url('assets/img/logoMpm.png') }}" alt="logo" data-src="{{ url('assets/img/logoMpm.png') }}" data-src-retina="{{ url('assets/img/logoMpm.png') }}" width="78" height="22">-->
             </div>
              </div>
         </div>

@@ -1,29 +1,17 @@
 
 <form name="frmmodal" id="frmmodal" method="post" class="frmmodal" enctype="multipart/form-data">
-<div class="panel panel-transparent"><!-- START PANEL -->
-	<div class="panel-heading">
-        <div class="panel-title">
+<div class="card card-transparant"><!-- START PANEL -->
+	<div class="card-header">
+        <div class="card-title">
 			Lookup RM : <?php echo $txtrm;?>
 			<input type="hidden" class="form-control" name="txtrm" value="<?php echo $txtrm;?>" required>
         </div>
-        <div class="tools">
-            <a class="collapse" href="javascript:;"></a>
-            <a class="config" data-toggle="modal" href="#grid-config"></a>
-            <a class="reload" href="javascript:;"></a>
-            <a class="remove" href="javascript:;"></a>
+    </div>
+    <div class="card-header">
+        <div class="card-title"><h5><b>Identitas</h5></b>
         </div>
     </div>
-    <div class="panel-heading">
-        <div class="panel-title">Identitas
-        </div>
-        <div class="tools">
-            <a class="collapse" href="javascript:;"></a>
-            <a class="config" data-toggle="modal" href="#grid-config"></a>
-            <a class="reload" href="javascript:;"></a>
-            <a class="remove" href="javascript:;"></a>
-        </div>
-    </div>
-    <div class="panel-body">
+    <div class="card-block">
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group form-group-default required ">
@@ -49,17 +37,11 @@
             </div>
         </div>
     </div>
-    <div class="panel-heading">
-        <div class="panel-title">Data Alamat
-        </div>
-        <div class="tools">
-            <a class="collapse" href="javascript:;"></a>
-            <a class="config" data-toggle="modal" href="#grid-config"></a>
-            <a class="reload" href="javascript:;"></a>
-            <a class="remove" href="javascript:;"></a>
+    <div class="card-header">
+        <div class="card-title"><h5><b>Data Alamat</h5></b>
         </div>
     </div>
-    <div class="panel-body">
+    <div class="card-block">
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group form-group-default required">
@@ -68,8 +50,8 @@
                 </div>
 				<div class="form-group form-group-default form-group-default-select2">
                     <label class="">Propinsi</label>
-                    <select class="cmbpropinsi full-width" data-placeholder="Pilih Propinsi" data-init-plugin="select2" name="cmbpropinsi">
-                        <optgroup>
+                    <select class="cmb full-width" data-placeholder="Pilih Propinsi" data-init-plugin="select2" name="cmbpropinsi">
+                        <optgroup label="Pilihan">
                             <option value=""></option>
                             <option value="TK">TK</option>
                             <option value="SD">SD</option>
@@ -88,8 +70,8 @@
             <div class="col-sm-4">
                 <div class="form-group form-group-default form-group-default-select2">
                     <label class="">Kota</label>
-                    <select class="cmbkota full-width" data-placeholder="Pilih Kota" data-init-plugin="select2" name="cmbkota">
-                        <optgroup>
+                    <select class="cmb full-width" data-placeholder="Pilih Kota" data-init-plugin="select2" name="cmbkota">
+                        <optgroup label="Pilihan">
                             <option value=""></option>
                             <option value="TK">TK</option>
                             <option value="SD">SD</option>
@@ -106,8 +88,8 @@
                 </div>
                 <div class="form-group form-group-default form-group-default-select2">
                     <label class="">Kecamatan</label>
-                    <select class="cmbkecamatan full-width" data-placeholder="Pilih Kecamatan" data-init-plugin="select2" name="cmbkecamatan">
-                        <optgroup>
+                    <select class="cmb full-width" data-placeholder="Pilih Kecamatan" data-init-plugin="select2" name="cmbkecamatan">
+                        <optgroup label="Pilihan">
                             <option value=""></option>
                             <option value="TK">TK</option>
                             <option value="SD">SD</option>
@@ -126,8 +108,8 @@
             <div class="col-sm-4">
                 <div class="form-group form-group-default form-group-default-select2">
                     <label class="">Kelurahan</label>
-                    <select class="cmbkelurahan full-width" data-placeholder="Pilih Kelurahan" data-init-plugin="select2" name="cmbkelurahan">
-                        <optgroup>
+                    <select class="cmb full-width" data-placeholder="Pilih Kelurahan" data-init-plugin="select2" name="cmbkelurahan">
+                        <optgroup label="Pilihan">
                             <option value=""></option>
                             <option value="TK">TK</option>
                             <option value="SD">SD</option>
@@ -160,16 +142,7 @@
 </div>
 </form>
 <script type="text/javascript">
-$(".cmbpropinsi").select2({
-    dropdownParent: $('#modalFillIn')
-});
-$(".cmbkota").select2({
-    dropdownParent: $('#modalFillIn')
-});
-$(".cmbkecamatan").select2({
-    dropdownParent: $('#modalFillIn')
-});
-$(".cmbkelurahan").select2({
+$(".cmb").select2({
     dropdownParent: $('#modalFillIn')
 });
 </script>

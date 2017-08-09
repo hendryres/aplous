@@ -6,8 +6,9 @@
           <!-- START SECONDARY SIDEBAR MENU-->
           <nav class="secondary-sidebar padding-30" style="height:100%" id="nav">
 			<div style="color: #EFF4F9;" class="form-group">
-			<label>RM</label>
-			<input name="rmid" style="color: #43484E;" type="text" value="1">
+			<center><label>POLI BEDAH</label></center>
+			<label class="hidden">RM</label>
+			<input class="hidden" name="rmid" style="color: #43484E;" type="text" value="1">
 			</div>
 			<div id="div_input" style="display:none">
             <button id="btninput" value="" class="btn btn-complete btn-block m-b-30">input baru</button>
@@ -296,37 +297,31 @@
 			if (document.getElementById("btninput").value == "linkdiagnosa")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data diagnosa IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjdiagnosa" id="frmirjdiagnosa" method="post" class="frmirjdiagnosa" onsubmit="simpandiagnosa();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
-									<div class="form-group form-group-default required ">\
+									<div class="form-group form-group-default required typehead" id="sample-three">\
 										<label>ICD 10</label>\
-										<input type="text" class="form-control" name="txticd10" id="txticd10" required>\
+										<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Jenis</label>\
 										<select class="cmbjenis full-width" data-placeholder="Pilih Jenis" data-init-plugin="select2" name="cmbjenis">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -368,71 +363,77 @@
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
+				
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "{{ url('Polianak/auto?namaicd10=%QUERY') }}",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 			}else if (document.getElementById("btninput").value == "linkcatatan")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">PENGKAJIAN AWAL DOKTER UMUM\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>PENGKAJIAN AWAL DOKTER UMUM</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjtindakan" id="frmirjtindakan" method="post" class="frmirjtindakan" onsubmit="simpantindakan();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Keadaan Umum\
-									</div>\
-									<div class="tools">\
-										<a class="collapse" href="javascript:;"></a>\
-										<a class="config" data-toggle="modal" href="#grid-config"></a>\
-										<a class="reload" href="javascript:;"></a>\
-										<a class="remove" href="javascript:;"></a>\
+								<div class="card-header">\
+									<div class="card-title"><h5><b>Keadaan Umum</b></h5>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required">\
 										<label>Keluhan Utama (S)</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Penyakit Sekarang</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Penyakit Dahulu</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Alergi</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Obat</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default required">\
 										<label>Pemeriksaan Fisik (O)</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 								</div>\
 							</div>\
 							<div class="form-group">\
-									<div class="panel panel-transparent">\
-										<div class="panel-heading"><strong>Canvas</strong></div>\
-										<div class="panel-body container-fix">\
+									<div class="card card-transparent">\
+										<div class="card-header"><strong>Canvas</strong></div>\
+										<div class="card-block container-fix">\
 											<div id="kanvaskajumum" class="kanvaskajumum-input"></div>\
 										</div>\
-										<div class="panel-body">\
+										<div class="card-block">\
 											<div class="col-md-4 col-sm-12 col-xs-12">\
 												<span class="slider-container">\
 													<p>Ukuran pena / penghapus / text:</p>\
@@ -487,53 +488,45 @@
 									</div>\
 								</div>\
 							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Diagnosis (A)\
-									</div>\
-								</div>\
 								<div class="col-sm-12">\
-									<div class="form-group form-group-default form-group-default-select2">\
-										<label class="label-lg">Diagnosis Primer</label>\
-										<select class="cmbagama full-width" data-placeholder="Pilih ICD10" data-init-plugin="select2" name="cmbagama">\
-											<optgroup label="Alaskan/Hawaiian Time Zone">\
-												<option value="">-</option>\
-												<option value="ISLAM">ISLAM</option>\
-												<option value="HINDU">HINDU</option>\
-												<option value="BUDHA">BUDHA</option>\
-												<option value="KRISTEN">KRISTEN</option>\
-											</optgroup>\
-										</select>\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>Diagnosis (A)</b></h5>\
+										</div>\
+									</div>\
+									<div class="form-group form-group-default required typehead" id="sample-three">\
+										<label>Diagnosa Primer</label>\
+										<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Diagnosa Sekunder</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Rencana Terapi (P)\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>Rencana Terapi (P)</b></h5>\
 										</div>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Tindakan (ICD9CM)</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Tindakan RS\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>Tindakan RS</b></h5>\
 										</div>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Tindakan (Tarif)</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
@@ -606,35 +599,45 @@
 					$(this).parents('.modal').modal('hide');
 				});
 				
-				$(".cmbagama").select2();
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "{{ url('Polianak/auto?namaicd10=%QUERY') }}",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 				
 			}else if (document.getElementById("btninput").value == "linktindakanrs")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Equipment\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Equipment</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Equipment</label>\
-										<input type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal</label>\
@@ -658,18 +661,12 @@
 						</div>\
 					</div>\
 				</div>\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Obat Ruangan\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Obat Ruangan</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
@@ -678,7 +675,7 @@
 											<div class="form-group form-group-default form-group-default-select2">\
 												<label class="">Pilih Depo</label>\
 												<select class="cmb full-width" data-placeholder="Pilih Depo" data-init-plugin="select2" name="cmbdepo">\
-													<optgroup>\
+													<optgroup label="Pilihan">\
 														<option value=""></option>\
 														<option value="UTAMA">UTAMA</option>\
 														<option value="SEKUNDER">SEKUNDER</option>\
@@ -693,11 +690,11 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Obat</label>\
-										<input type="text" class="form-control" name="txtobat" id="txtobat" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtobat" id="txtobat" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Satuan</label>\
-										<input type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
@@ -710,7 +707,7 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Qty</label>\
@@ -750,18 +747,12 @@
 			}else if (document.getElementById("btninput").value == "linkrujuk")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data Rujuk IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjrujuk" id="frmirjrujuk" method="post" class="frmirjrujuk" onsubmit="simpanrujuk();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
@@ -770,7 +761,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Instalasi</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbinstalasi">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -780,7 +771,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Poli</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -789,13 +780,13 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>No. SEP</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal Rujukan</label>\
@@ -1042,5 +1033,21 @@
             });
  }
  </script>
+ 
+ <script type="text/javascript">
+
+    function ToUpper(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+    }
+
+    function ToLower(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toLowerCase();
+    }
+
+</script>
  
 {% endblock %}

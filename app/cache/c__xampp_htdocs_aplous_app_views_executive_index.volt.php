@@ -193,7 +193,7 @@
         <div class=" pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
-              <img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">
+              <!--<img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">-->
             </div>
              </div>
         </div>
@@ -261,18 +261,12 @@
     <!-- END JUMBOTRON -->
 	<form name="frmpendaftaran" id="frmpendaftaran" method="post" class="frmpendaftaran" onsubmit="simpan();return false;" enctype="multipart/form-data">
 		<!-- START PANEL -->
-        <div class="panel panel-transparent">
-			<div class="panel-heading">
-				<div class="panel-title">Data Pasien
-				</div>
-				<div class="tools">
-					<a class="collapse" href="javascript:;"></a>
-					<a class="config" data-toggle="modal" href="#grid-config"></a>
-					<a class="reload" href="javascript:;"></a>
-					<a class="remove" href="javascript:;"></a>
+        <div class="card card-transparent">
+			<div class="card-header">
+				<div class="card-title"><h5><b>Data Pasien</b></h5>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-block">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group form-group-default required ">
@@ -281,26 +275,26 @@
 						</div>
 						<div class="form-group form-group-default required">
 							<label>Nama Pasien</label>
-							<input type="text" class="form-control" name="txtnamalengkap" required>
+							<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamalengkap" required>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group form-group-default input-group">
 							<label>Tanggal Lahir</label>
-							<input type="email" class="form-control" placeholder="Pilih Tanggal" name="dtptanggallahir"id="dtptanggallahir">
+							<input type="text" class="form-control" placeholder="Pilih Tanggal" name="dtptanggallahir"id="dtptanggallahir">
 							<span class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</span>
 						</div>
 						<div class="form-group form-group-default required">
 							<label>Handphone</label>
-							<input type="text" class="form-control" name="txthandphone" required>
+							<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txthandphone" required>
 						</div>	
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group form-group-default input-group">
 							<label>Penanggung Jawab</label>
-							<input type="email" class="form-control" name="txtpenanggungjawab">
+							<input type="text" class="form-control" name="txtpenanggungjawab">
 							<span class="input-group-addon">
 								<i class="fa fa-plus"></i>
 							</span>
@@ -309,23 +303,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-heading">
-				<div class="panel-title">Data Kunjungan
-				</div>
-				<div class="tools">
-					<a class="collapse" href="javascript:;"></a>
-					<a class="config" data-toggle="modal" href="#grid-config"></a>
-					<a class="reload" href="javascript:;"></a>
-					<a class="remove" href="javascript:;"></a>
+			<div class="card-header">
+				<div class="card-title"><h5><b>Data Kunjungan</b></h5>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-block">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group form-group-default form-group-default-select2">
 							<label class="">Instalasi/Unit</label>
 							<select class="full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbunit">
-								<optgroup>
+								<optgroup label="Pilihan">
 									<option value=""></option>
 									<option value="TK">TK</option>
 									<option value="SD">SD</option>
@@ -343,7 +331,7 @@
 						<div class="form-group form-group-default form-group-default-select2">
 							<label class="">Poli/SMF</label>
 							<select class="full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">
-								<optgroup>
+								<optgroup label="Pilihan">
 									<option value=""></option>
 									<option value="TK">TK</option>
 									<option value="SD">SD</option>
@@ -362,11 +350,11 @@
 					<div class="col-sm-4">
 						<div class="form-group form-group-default">
 							<label>No. Reg/Kunjungan</label>
-							<input type="text" class="form-control" name="txtnoreg">
+							<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnoreg">
 						</div>
 						<div class="form-group form-group-default input-group">
 							<label>Tanggal/No Urut</label>
-							<input type="email" class="form-control" placeholder="Pilih Tanggal" name="dtptanggal" id="dtptanggal">
+							<input type="text" class="form-control" placeholder="Pilih Tanggal" name="dtptanggal" id="dtptanggal">
 							<span class="input-group-addon">
 								<i class="fa fa-calendar"></i>
 							</span>
@@ -376,7 +364,7 @@
 						<div class="form-group form-group-default form-group-default-select2">
 							<label class="">Akses Masuk</label>
 							<select class="full-width" data-placeholder="Pilih Akses Masuk" data-init-plugin="select2" name="cmbaksesmasuk">
-								<optgroup>
+								<optgroup label="Pilihan">
 									<option value=""></option>
 									<option value="TK">TK</option>
 									<option value="SD">SD</option>
@@ -394,7 +382,7 @@
 						<div class="form-group form-group-default form-group-default-select2">
 							<label class="">Cara Masuk</label>
 							<select class="full-width" data-placeholder="Pilih Cara Masuk" data-init-plugin="select2" name="cmbcaramasuk">
-								<optgroup>
+								<optgroup label="Pilihan">
 									<option value=""></option>
 									<option value="TK">TK</option>
 									<option value="SD">SD</option>
@@ -412,23 +400,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-heading">
-				<div class="panel-title">Metode Pembayaran
-				</div>
-				<div class="tools">
-					<a class="collapse" href="javascript:;"></a>
-					<a class="config" data-toggle="modal" href="#grid-config"></a>
-					<a class="reload" href="javascript:;"></a>
-					<a class="remove" href="javascript:;"></a>
+			<div class="card-header">
+				<div class="card-title"><h5><b>Metode Pembayaran</b></h5>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-block">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group form-group-default form-group-default-select2">
 							<label class="">Jenis Pembayaran</label>
 							<select class="full-width" data-placeholder="Pilih Pembayaran" data-init-plugin="select2" name="cmbmetodepembayaran">
-								<optgroup>
+								<optgroup label="Pilihan">
 									<option value=""></option>
 									<option value="TK">TK</option>
 									<option value="SD">SD</option>
@@ -446,28 +428,22 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-heading">
-				<div class="panel-title">Dokter Penanggung Jawab
-				</div>
-				<div class="tools">
-					<a class="collapse" href="javascript:;"></a>
-					<a class="config" data-toggle="modal" href="#grid-config"></a>
-					<a class="reload" href="javascript:;"></a>
-					<a class="remove" href="javascript:;"></a>
+			<div class="card-header">
+				<div class="card-title"><h5><b>Dokter Penanggung Jawab</b></h5>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="card-block">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group form-group-default required">
 							<label>DPJP 1</label>
-							<input type="text" class="form-control" name="txtdpjp1" required>
+							<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdpjp1" required>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group form-group-default required">
 							<label>DPJP 2</label>
-							<input type="text" class="form-control" name="txtdpjp2" required>
+							<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdpjp2" required>
 						</div>	
 					</div>
 				</div>
@@ -517,6 +493,22 @@
             });
  }
  </script>
+ 
+ <script type="text/javascript">
+
+    function ToUpper(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+    }
+
+    function ToLower(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toLowerCase();
+    }
+
+</script>
              
 
         </div>

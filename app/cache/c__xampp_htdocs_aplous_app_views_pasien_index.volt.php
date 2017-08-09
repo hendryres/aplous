@@ -193,7 +193,7 @@
         <div class=" pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
-              <img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">
+              <!--<img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">-->
             </div>
              </div>
         </div>
@@ -280,13 +280,13 @@
 								</div>
 								<div class="form-group form-group-default required">
 									<label>Nama Lengkap</label>
-									<input type="text" class="form-control" name="txtnamalengkap" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamalengkap" required>
 								</div>
 								<div class="form-group form-group-default form-group-default-select2 required">
 									<label class="">Jenis Kelamin</label>
 									<select class="full-width" data-placeholder="Pilih Jenis Kelamin" data-init-plugin="select2" name="cmbjeniskelamin" required>
-										<optgroup label="Alaskan/Hawaiian Time Zone">
-											<option value="">-</option>
+										<optgroup label="Pilihan">
+											<option value=""></option>
 											<option value="L">LAKI-LAKI</option>
 											<option value="P">PEREMPUAN</option>
 										</optgroup>
@@ -294,19 +294,19 @@
 								</div>
 								<div class="form-group form-group-default required">
 									<label>Usia</label>
-									<input type="text" class="form-control" name="txtusia" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtusia" required>
 								</div>
 								<div class="form-group form-group-default required ">
 									<label>Tempat Lahir</label>
-									<input type="text" class="form-control" name="txttempatlahir" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txttempatlahir" required>
 								</div>	
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default form-group-default-select2">
 									<label class="">Status Perkawinan</label>
 									<select class="full-width" data-placeholder="Pilih Status" data-init-plugin="select2" name="cmbstatuskawin">
-										<optgroup label="Alaskan/Hawaiian Time Zone">
-											<option value="">-</option>
+										<optgroup label="Pilihan">
+											<option value=""></option>
 											<option value="K0">TIDAK KAWIN</option>
 											<option value="K1">KAWIN</option>
 										</optgroup>
@@ -315,8 +315,8 @@
 								<div class="form-group form-group-default form-group-default-select2">
 									<label class="">Agama</label>
 									<select class="full-width" data-placeholder="Pilih Agama" data-init-plugin="select2" name="cmbagama">
-										<optgroup label="Alaskan/Hawaiian Time Zone">
-											<option value="">-</option>
+										<optgroup label="Pilihan">
+											<option value=""></option>
 											<option value="ISLAM">ISLAM</option>
 											<option value="HINDU">HINDU</option>
 											<option value="BUDHA">BUDHA</option>
@@ -327,8 +327,8 @@
 								<div class="form-group form-group-default form-group-default-select2">
 									<label class="">Tingkat pendidikan</label>
 									<select class="full-width" data-placeholder="Pilih Pendidikan" data-init-plugin="select2" name="cmbpendidikan">
-										<optgroup>
-											<option value="">-</option>
+										<optgroup label="Pilihan>
+											<option value=""></option>
 											<option value="TK">TK</option>
 											<option value="SD">SD</option>
 											<option value="SLTP">SLTP</option>
@@ -344,26 +344,26 @@
 								</div>
 								<div class="form-group form-group-default">
 									<label>Gelar</label>
-									<input type="text" class="form-control" name="txtgelar">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtgelar">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>No. KTP/SIM</label>
-									<input type="text" class="form-control" name="txtidentitas">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtidentitas">
 								</div>
 								<div class="form-group form-group-default">
 									<label>No.Passport</label>
-									<input type="text" class="form-control" name="txtpassport">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtpassport">
 								</div>
 								<div class="form-group form-group-default">
 									<label>Informasi RS dari</label>
-									<input type="text" class="form-control" name="txtrefferensi">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtrefferensi">
 								</div>
 								<div class="form-group form-group-default form-group-default-select2">
 									<label class="">Golongan Darah</label>
 									<select class="full-width" data-placeholder="Pilih Golongan Darah" data-init-plugin="select2" name="cmbgolongandarah">
-										<optgroup label="Alaskan/Hawaiian Time Zone">
+										<optgroup label="Pilihan">
 											<option value="">-</option>
 											<option value="A">A</option>
 											<option value="B">B</option>
@@ -379,25 +379,19 @@
 					<div class="card-header">
 						<div class="card-title"><h5><b>Data Alamat</b></h5>
 						</div>
-						<div class="tools">
-							<a class="collapse" href="javascript:;"></a>
-							<a class="config" data-toggle="modal" href="#grid-config"></a>
-							<a class="reload" href="javascript:;"></a>
-							<a class="remove" href="javascript:;"></a>
-						</div>
 					</div>
 					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
 									<label>Alamat</label>
-									<textarea class="form-control" name="txtalamat" required></textarea>
+									<textarea onkeyup="ToUpper(this)" class="form-control" name="txtalamat" required></textarea>
 								</div>
 								<div class="form-group form-group-default form-group-default-select2 required">
 									<label class="">Wilayah</label>
 									<select class="full-width" data-placeholder="Pili Wilayah" data-init-plugin="select2" name="cmbwilayah" required>
-										<optgroup>
-											<option value="">-</option>
+										<optgroup Label="Pilihan">
+											<option value=""></option>
 											<option value="Jawa Barat">Jawa Barat</option>
 											<option value="Jawa Timur">Jawa Timur</option>
 											<option value="Jawa Tengah">Jawa Tengah</option>
@@ -427,7 +421,7 @@
 								<div class="form-group form-group-default form-group-default-select2 required">
 									<label class="">Kecamatan</label>
 									<select class="full-width" data-placeholder="Pilih Kecamatan" data-init-plugin="select2" name="cmbkecamatan" required>
-										<optgroup label="Alaskan/Hawaiian Time Zone">
+										<optgroup label="Pilihan">
 											<option value="">-</option>
 											<option value="TK">TK</option>
 											<option value="SD">SD</option>
@@ -444,17 +438,17 @@
 								</div>
 								<div class="form-group form-group-default">
 									<label>Kode Pos</label>
-									<input type="text" class="form-control" name="txtkodepos">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtkodepos">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Suku</label>
-									<input type="text" class="form-control" name="txtsuku">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtsuku">
 								</div>
 								<div class="form-group form-group-default">
 									<label>Kebangsaan</label>
-									<input type="text" class="form-control" name="txtkebangsaan">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtkebangsaan">
 								</div>
 							</div>
 						</div>
@@ -463,35 +457,29 @@
 					<div class="card-header">
 						<div class="card-title"><h5><b>Data Keluarga</b></h5>
 						</div>
-						<div class="tools">
-							<a class="collapse" href="javascript:;"></a>
-							<a class="config" data-toggle="modal" href="#grid-config"></a>
-							<a class="reload" href="javascript:;"></a>
-							<a class="remove" href="javascript:;"></a>
-						</div>
 					</div>
 					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
 									<label>Nama Ibu</label>
-									<input type="text" class="form-control" name="txtnamaibu" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamaibu" required>
 								</div>
 								<div class="form-group form-group-default required">
 									<label>Nama Ayah</label>
-									<input type="text" class="form-control" name="txtnamaayah" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamaayah" required>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Nama Suami/Istri</label>
-									<input type="text" class="form-control" name="txtnamapasangan">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamapasangan">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
 									<label>Nama Keluarga</label>
-									<input type="text" class="form-control" name="txtnamakeluarga" required> 
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnamakeluarga" required> 
 								</div>
 							</div>
 						</div>
@@ -500,35 +488,29 @@
 					<div class="card-header">
 						<div class="card-title"><h5><b>Data Kontak</b></h5>
 						</div>
-						<div class="tools">
-							<a class="collapse" href="javascript:;"></a>
-							<a class="config" data-toggle="modal" href="#grid-config"></a>
-							<a class="reload" href="javascript:;"></a>
-							<a class="remove" href="javascript:;"></a>
-						</div>
 					</div>
 					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default required">
 									<label>Handphone</label>
-									<input type="text" class="form-control" name="txthandphone" required>
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txthandphone" required>
 								</div>
 								<div class="form-group form-group-default">
 									<label>Telphone</label>
-									<input type="text" class="form-control" name="txtphone">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtphone">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Fax</label>
-									<input type="text" class="form-control" name="txtfax">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtfax">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default ">
 									<label>Email</label>
-									<input type="email" class="form-control" name="txtemail">
+									<input onkeyup="ToUpper(this)" type="email" class="form-control" name="txtemail">
 								</div>
 							</div>
 						</div>
@@ -537,31 +519,25 @@
 					<div class="card-header">
 						<div class="card-title"><h5><b>Data Pekerjaan</b></h5>
 						</div>
-						<div class="tools">
-							<a class="collapse" href="javascript:;"></a>
-							<a class="config" data-toggle="modal" href="#grid-config"></a>
-							<a class="reload" href="javascript:;"></a>
-							<a class="remove" href="javascript:;"></a>
-						</div>
 					</div>
 					<div class="card-block">
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Pekerjaan</label>
-									<input type="text" class="form-control" name="txtpekerjaan">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtpekerjaan">
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Alamat bekerja</label>
-									<textarea class="form-control" name="txtalamatbekerja"></textarea>
+									<textarea onkeyup="ToUpper(this)" class="form-control" name="txtalamatbekerja"></textarea>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group form-group-default">
 									<label>Telphone kantor</label>
-									<input type="text" class="form-control" name="txtphonekantor">
+									<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtphonekantor">
 								</div>
 							</div>
 						</div>
@@ -615,6 +591,22 @@
             });
  }
  </script>
+ 
+ <script type="text/javascript">
+
+    function ToUpper(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+    }
+
+    function ToLower(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toLowerCase();
+    }
+
+</script>
              
 
         </div>

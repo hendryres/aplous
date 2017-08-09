@@ -1,4 +1,4 @@
-a:3:{i:0;s:12874:"<!DOCTYPE html>
+a:3:{i:0;s:12940:"<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -68,6 +68,7 @@ a:3:{i:0;s:12874:"<!DOCTYPE html>
 	<?= $this->tag->javascriptInclude('fatma/szoftalmologiscanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/szblankcanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/hermite.js') ?>
+	<?= $this->tag->javascriptInclude('js/Underscore.js') ?>
   </body>
 	<script>
 	(function($){
@@ -193,7 +194,7 @@ a:3:{i:0;s:12874:"<!DOCTYPE html>
         <div class=" pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
-              <img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">
+              <!--<img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">-->
             </div>
              </div>
         </div>
@@ -240,7 +241,7 @@ a:3:{i:0;s:12874:"<!DOCTYPE html>
         <!-- START PAGE CONTENT -->
         <div class="content bg-white full-height p-b-0">
 			";s:7:"content";a:1:{i:0;a:4:{s:4:"type";i:357;s:5:"value";s:5:"
-			";s:4:"file";s:53:"C:\xampp\htdocs\aplous/app/views/template/aplous.volt";s:4:"line";i:243;}}i:1;s:68086:"
+			";s:4:"file";s:53:"C:\xampp\htdocs\aplous/app/views/template/aplous.volt";s:4:"line";i:244;}}i:1;s:68086:"
         </div>
 		<!-- END PAGE CONTENT -->
       </div>

@@ -6,8 +6,9 @@
           <!-- START SECONDARY SIDEBAR MENU-->
           <nav class="secondary-sidebar padding-30" style="height:100%" id="nav">
 			<div style="color: #EFF4F9;" class="form-group">
-			<label>RM</label>
-			<input name="rmid" style="color: #43484E;" type="text" value="1">
+			<center><label>POLI MATA</label></center>
+			<label class="hidden">RM</label>
+			<input class="hidden" name="rmid" style="color: #43484E;" type="text" value="1">
 			</div>
 			<div id="div_input" style="display:none">
             <button id="btninput" value="" class="btn btn-complete btn-block m-b-30">input baru</button>
@@ -296,37 +297,31 @@
 			if (document.getElementById("btninput").value == "linkdiagnosa")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data diagnosa IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjdiagnosa" id="frmirjdiagnosa" method="post" class="frmirjdiagnosa" onsubmit="simpandiagnosa();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
-									<div class="form-group form-group-default required ">\
+									<div class="form-group form-group-default required typehead" id="sample-three">\
 										<label>ICD 10</label>\
-										<input type="text" class="form-control" name="txticd10" id="txticd10" required>\
+										<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Jenis</label>\
 										<select class="cmbjenis full-width" data-placeholder="Pilih Jenis" data-init-plugin="select2" name="cmbjenis">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -368,106 +363,171 @@
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
+				
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "{{ url('Polianak/auto?namaicd10=%QUERY') }}",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 			}else if (document.getElementById("btninput").value == "linkcatatan")
 			{
+				
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">PENGKAJIAN AWAL DOKTER UMUM\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<?php $timestamp = time(); ?>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>PENGKAJIAN PASIEN MATA</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjtindakan" id="frmirjtindakan" method="post" class="frmirjtindakan" onsubmit="simpantindakan();return false;" enctype="multipart/form-data">\
-							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
-							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Keadaan Umum\
-									</div>\
-									<div class="tools">\
-										<a class="collapse" href="javascript:;"></a>\
-										<a class="config" data-toggle="modal" href="#grid-config"></a>\
-										<a class="reload" href="javascript:;"></a>\
-										<a class="remove" href="javascript:;"></a>\
-									</div>\
-								</div>\
-								<div class="col-sm-6">\
-									<div class="form-group form-group-default required">\
-										<label>Keluhan Utama (S)</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-									<div class="form-group form-group-default required">\
-										<label>Riwayat Penyakit Sekarang</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-									<div class="form-group form-group-default required">\
-										<label>Riwayat Penyakit Dahulu</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-								</div>\
-								<div class="col-sm-6">\
-									<div class="form-group form-group-default required">\
-										<label>Riwayat Alergi</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-									<div class="form-group form-group-default required">\
-										<label>Riwayat Obat</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-									<div class="form-group form-group-default required">\
-										<label>Pemeriksaan Fisik (O)</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
-									</div>\
-								</div>\
-							</div>\
-							<div class="form-group">\
-									<div class="panel panel-transparent">\
-										<div class="panel-heading"><strong>Canvas</strong></div>\
-										<div class="panel-body container-fix">\
-											<div id="kanvaskajumum" class="kanvaskajumum-input"></div>\
+								<input class="hidden" type="text" name="txtrm" value="1" readonly=""/>\
+								<div class="row">\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>KAJIAN MATA</b></h5>\
 										</div>\
-										<div class="panel-body">\
-											<div class="col-md-4 col-sm-12 col-xs-12">\
-												<span class="slider-container">\
-													<p>Ukuran pena / penghapus / text:</p>\
-													<input type="range" id="kanvaskajumum-slider" min="2" max="50" step="2" value="2" />\
-													<p class="slider-value"><strong>2</strong></p>\
-												</span>\
-											</div>\
-											<div class="col-md-8 col-sm-12 col-xs-12">\
-												<a class="btn btn-default btn-sm" id="kanvaskajumum-brush">Pena</a>\
-												<a class="btn btn-default btn-sm" id="kanvaskajumum-text">Text</a>\
-												<div class="btn-group dropup">\
-													<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
-														<span id="kanvaskajumum-current-color" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Warna\
-													</a>\
-													<ul class="dropdown-menu">\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: red; min-width: 10px; width: 10px; height: 8px"></span> Merah</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: pink; min-width: 10px; width: 10px; height: 8px"></span> Merah Muda</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: orange; min-width: 10px; width: 10px; height: 8px"></span> Orange</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: yellow; min-width: 10px; width: 10px; height: 8px"></span> Kuning</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: lime; min-width: 10px; width: 10px; height: 8px"></span> Lime</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: green; min-width: 10px; width: 10px; height: 8px"></span> Hijau</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: cyan; min-width: 10px; width: 10px; height: 8px"></span> Cyan</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: blue; min-width: 10px; width: 10px; height: 8px"></span> Biru</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: purple; min-width: 10px; width: 10px; height: 8px"></span> Ungu</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: magenta; min-width: 10px; width: 10px; height: 8px"></span> Magenta</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: brown; min-width: 10px; width: 10px; height: 8px"></span> Cokelat</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: grey; min-width: 10px; width: 10px; height: 8px"></span> Abu-Abu</a></li>\
-														<li><a class="kanvaskajumum-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Hitam</a></li>\
-													</ul>\
+									</div>\
+									<div class="col-sm-6">\
+										<div class="form-group form-group-default required">\
+											<label>Keluhan Utama (S)</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Keluhan Tambahan</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Riwayat Penyakit Sekarang</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Riwayat Penyakit Dahulu</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Riwayat Alergi</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Riwayat Obat</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Diagnosa Kerja OD</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+									</div>\
+									<div class="col-sm-6">\
+										<div class="form-group form-group-default required">\
+											<label>Diagnosa Kerja OS</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>DD</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Therapy</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Prognosa</label>\
+											<textarea onkeyup="ToUpper(this)"  class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Rencana Pemeriksaan</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+										<div class="form-group form-group-default required">\
+											<label>Pemeriksaan Fisik (O)</label>\
+											<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										</div>\
+									</div>\
+								</div>\
+								<div class="form-group">\
+									<div class="card card-transparent">\
+										<div class="row">\
+											<div class="card-header">\
+												<div class="card-title"><h5><b>Oftalmologis</b></h5>\
 												</div>\
-												<a class="btn btn-default btn-sm" id="kanvaskajumum-eraser">Hapus</a>\
-												<a class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-clear-kanvaskajumum">Hapus Semua</a>\
 											</div>\
 										</div>\
-										<div class="modal" id="modal-clear-kanvaskajumum" tabindex="-1" role="dialog">\
+										<div class="card-block container-fix">\
+											<div id="oftalmologis_<?php echo $timestamp; ?>" class="oftalmologis-input"></div>\
+										</div>\
+										<div class="card-block">\
+											<div class="row">\
+												<div class="col-xs-12">\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="NW"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="N"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="NE"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="W"><span class="arrow-image"></span></a></div>\
+													<div class="btn-group dropup col-xs-4 oftalmologis-arrow">\
+														<a class="btn btn-default btn-lg col-xs-12 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><small>Gerak</small></a>\
+														<ul class="dropdown-menu">\
+															<li><a class="oftalmologis-arrow oftalmologis-arrow-mode" arrow-mode="full" href="#"><span class="color-picker" style="padding: 0 8px; margin: 4px; min-width: 10px; width: 10px; height: 8px"></span> Tidak ada hambatan gerak</a></li>\
+															<li><a class="oftalmologis-arrow oftalmologis-arrow-mode" arrow-mode="partial" href="#"><span class="color-picker" style="padding: 0 8px; margin: 4px; min-width: 10px; width: 10px; height: 8px"></span> Terdapat hambatan gerak</a></li>\
+															<li><a class="oftalmologis-arrow oftalmologis-arrow-mode" arrow-mode="none" href="#"><span class="color-picker" style="padding: 0 8px; margin: 4px; min-width: 10px; width: 10px; height: 8px"></span> Tidak dapat bergerak</a></li>\
+														</ul>\
+													</div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="E"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="SW"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="S"><span class="arrow-image"></span></a></div>\
+													<div class="col-xs-4"><a href="#" class="btn btn-default btn-lg col-xs-12 oftalmologis-arrow-direction oftalmologis-arrow" arrow-direction="SE"><span class="arrow-image"></span></a></div>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="card-block">\
+											<div class="row">\
+												<div class="col-md-4 col-sm-12 col-xs-12">\
+													<span class="slider-container">\
+														<p>Ukuran pena / penghapus / text:</p>\
+														<input type="range" id="oftalmologis-slider" min="2" max="50" step="2" value="2" />\
+														<p class="slider-value"><strong>2</strong></p>\
+													</span>\
+												</div>\
+												<div class="col-md-8 col-sm-12 col-xs-12">\
+													<a class="btn btn-default btn-sm" id="oftalmologis-brush">Pena</a>\
+													<a class="btn btn-default btn-sm" id="oftalmologis-text">Text</a>\
+													<div class="btn-group dropup">\
+														<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+															<span id="oftalmologis-current-color" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Warna\
+														</a>\
+														<ul class="dropdown-menu">\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: red; min-width: 10px; width: 10px; height: 8px"></span> Merah</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: pink; min-width: 10px; width: 10px; height: 8px"></span> Merah Muda</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: orange; min-width: 10px; width: 10px; height: 8px"></span> Orange</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: yellow; min-width: 10px; width: 10px; height: 8px"></span> Kuning</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: lime; min-width: 10px; width: 10px; height: 8px"></span> Lime</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: green; min-width: 10px; width: 10px; height: 8px"></span> Hijau</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: cyan; min-width: 10px; width: 10px; height: 8px"></span> Cyan</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: blue; min-width: 10px; width: 10px; height: 8px"></span> Biru</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: purple; min-width: 10px; width: 10px; height: 8px"></span> Ungu</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: magenta; min-width: 10px; width: 10px; height: 8px"></span> Magenta</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: brown; min-width: 10px; width: 10px; height: 8px"></span> Cokelat</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: grey; min-width: 10px; width: 10px; height: 8px"></span> Abu-Abu</a></li>\
+															<li><a class="oftalmologis-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Hitam</a></li>\
+														</ul>\
+													</div>\
+													<a class="btn btn-default btn-sm" id="oftalmologis-eraser">Hapus</a>\
+													<a class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-clear-oftalmologis">Hapus Semua</a>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="modal" id="modal-clear-oftalmologis" tabindex="-1" role="dialog">\
 											<div class="modal-dialog modal-sm" role="document">\
 												<div class="modal-content">\
 													<div class="modal-header">\
@@ -475,10 +535,10 @@
 														<h4 class="modal-title">Konfirmasi Hapus</h4>\
 													</div>\
 													<div class="modal-body">\
-														<p>Hapus semua gambar canvas?</p>\
+														<p>Hapus semua gambar oftalmologis?</p>\
 													</div>\
 													<div class="modal-footer">\
-														<button type="button" class="btn btn-primary" id="kanvaskajumum-clear">Ya</button>\
+														<button type="button" class="btn btn-default" id="oftalmologis-clear">Ya</button>\
 														<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>\
 													</div>\
 												</div>\
@@ -486,67 +546,277 @@
 										</div>\
 									</div>\
 								</div>\
-							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Diagnosis (A)\
-									</div>\
-								</div>\
-								<div class="col-sm-12">\
-									<div class="form-group form-group-default form-group-default-select2">\
-										<label class="label-lg">Diagnosis Primer</label>\
-										<select class="cmbagama full-width" data-placeholder="Pilih ICD10" data-init-plugin="select2" name="cmbagama">\
-											<optgroup label="Alaskan/Hawaiian Time Zone">\
-												<option value="">-</option>\
-												<option value="ISLAM">ISLAM</option>\
-												<option value="HINDU">HINDU</option>\
-												<option value="BUDHA">BUDHA</option>\
-												<option value="KRISTEN">KRISTEN</option>\
-											</optgroup>\
-										</select>\
-									</div>\
-								</div>\
-								<div class="col-sm-12">\
-									<div class="form-group form-group-default input-group">\
-										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
-										<label class="label-lg">Diagnosa Sekunder</label>\
-										<input type="email" class="form-control">\
-										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
-									</div>\
-								</div>\
-								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Rencana Terapi (P)\
+								<div class="form-group">\
+									<div class="card card-transparent">\
+										<div class="row">\
+											<div class="col-sm-12">\
+												<div class="card-header">\
+													<div class="card-title"><h5><b>Anterior</b></h5>\
+													</div>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="card-block container-fix">\
+											<div id="anterior-eye_<?php echo $timestamp; ?>" class="anterior-eye-input"></div>\
+										</div>\
+										<div class="card-block">\
+											<div class="col-md-4 col-sm-12 col-xs-12">\
+												<span class="slider-container">\
+													<p>Ukuran pena / penghapus / text:</p>\
+													<input type="range" id="anterior-eye-slider" min="2" max="50" step="2" value="2" />\
+													<p class="slider-value"><strong>2</strong></p>\
+												</span>\
+											</div>\
+											<div class="col-md-8 col-sm-12 col-xs-12">\
+												<a class="btn btn-default btn-sm" id="anterior-eye-brush">Pena</a>\
+												<a class="btn btn-default btn-sm" id="anterior-eye-text">Text</a>\
+												<div class="btn-group dropup">\
+													<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+														<span id="anterior-eye-current-color" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Warna\
+													</a>\
+													<ul class="dropdown-menu">\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: red; min-width: 10px; width: 10px; height: 8px"></span> Merah</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: pink; min-width: 10px; width: 10px; height: 8px"></span> Merah Muda</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: orange; min-width: 10px; width: 10px; height: 8px"></span> Orange</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: yellow; min-width: 10px; width: 10px; height: 8px"></span> Kuning</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: lime; min-width: 10px; width: 10px; height: 8px"></span> Lime</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: green; min-width: 10px; width: 10px; height: 8px"></span> Hijau</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: cyan; min-width: 10px; width: 10px; height: 8px"></span> Cyan</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: blue; min-width: 10px; width: 10px; height: 8px"></span> Biru</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: purple; min-width: 10px; width: 10px; height: 8px"></span> Ungu</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: magenta; min-width: 10px; width: 10px; height: 8px"></span> Magenta</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: brown; min-width: 10px; width: 10px; height: 8px"></span> Cokelat</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: grey; min-width: 10px; width: 10px; height: 8px"></span> Abu-Abu</a></li>\
+														<li><a class="anterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Hitam</a></li>\
+													</ul>\
+												</div>\
+												<a class="btn btn-default btn-sm" id="anterior-eye-eraser">Hapus</a>\
+												<a class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-clear-anterior">Hapus Semua</a>\
+											</div>\
+										</div>\
+										<div class="modal" id="modal-clear-anterior" tabindex="-1" role="dialog">\
+											<div class="modal-dialog modal-sm" role="document">\
+												<div class="modal-content">\
+													<div class="modal-header">\
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+														<h4 class="modal-title">Konfirmasi Hapus</h4>\
+													</div>\
+													<div class="modal-body">\
+														<p>Hapus semua gambar anterior?</p>\
+													</div>\
+													<div class="modal-footer">\
+														<button type="button" class="btn btn-default" id="anterior-eye-clear">Ya</button>\
+														<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>\
+													</div>\
+												</div>\
+											</div>\
 										</div>\
 									</div>\
-									<div class="form-group form-group-default input-group">\
-										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
-										<label class="label-lg">Tindakan (ICD9CM)</label>\
-										<input type="email" class="form-control">\
-										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
-									</div>\
 								</div>\
-								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Tindakan RS\
+								<div class="card card-transparent">\
+									<div class="row">\
+										<div class="col-sm-12">\
+											<div class="card-header">\
+												<div class="card-title"><h5><b>Status Oftalmolgi</b></h5>\
+												</div>\
+											</div>\
 										</div>\
 									</div>\
-									<div class="form-group form-group-default input-group">\
-										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
-										<label class="label-lg">Tindakan (Tarif)</label>\
-										<input type="email" class="form-control">\
-										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
+									<div class="card-block">\
+										<div class="row">\
+											<div class="col-sm-6">\
+												<div class="form-group form-group-default ">\
+													<label>Visus SC</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtequipment" id="txtequipment" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Visus CC</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Posisi</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Pergerakan</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Palpebra</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Conj Tarsalis</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Fornix</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Bulbi</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" >\
+												</div>\
+											</div>\
+											<div class="col-sm-6">\
+												<div class="form-group form-group-default ">\
+													<label>Kornea</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtharga" id="txtharga" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Kamera Okuli Anterior</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Iris</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Pupil</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Lensa</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>C Vitreous</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Tekanan Bola Mata</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+												<div class="form-group form-group-default ">\
+													<label>Funduscopy</label>\
+													<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtqty" id="txtqty" >\
+												</div>\
+											</div>\
+										</div>\
 									</div>\
 								</div>\
-							</div>\
-							<div  class="row">\
-								<div class="pull-right">\
-									<div class="col-xs-12">\
-										<button class="btn btn-primary btn-lg"  type="submit" id="btnsimpan" name="btnsimpan" > Simpan</button>\
-										<button class="btn btn-info btn-lg"  type="button" id="batal" >Batal</button>\
-										</button>\
+								<div class="form-group">\
+									<div class="card card-transparent">\
+										<div class="row">\
+											<div class="col-sm-12">\
+												<div class="card-header">\
+													<div class="card-title"><h5><b>Posterior</b></h5>\
+													</div>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="card-block container-fix">\
+											<div id="posterior-eye_<?php echo $timestamp; ?>" class="posterior-eye-input"></div>\
+										</div>\
+										<div class="card-block">\
+											<div class="row">\
+												<div class="col-md-4 col-sm-12 col-xs-12">\
+													<span class="slider-container">\
+														<p>Ukuran pena / penghapus / text:</p>\
+														<input type="range" id="posterior-eye-slider" min="2" max="50" step="2" value="2" />\
+														<p class="slider-value"><strong>2</strong></p>\
+													</span>\
+												</div>\
+												<div class="col-md-8 col-sm-12 col-xs-12">\
+													<a class="btn btn-default btn-sm" id="posterior-eye-brush">Pena</a>\
+													<a class="btn btn-default btn-sm" id="posterior-eye-text">Text</a>\
+													<div class="btn-group dropup">\
+														<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\
+															<span id="posterior-eye-current-color" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Warna\
+														</a>\
+														<ul class="dropdown-menu">\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: red; min-width: 10px; width: 10px; height: 8px"></span> Merah</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: pink; min-width: 10px; width: 10px; height: 8px"></span> Merah Muda</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: orange; min-width: 10px; width: 10px; height: 8px"></span> Orange</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: yellow; min-width: 10px; width: 10px; height: 8px"></span> Kuning</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: lime; min-width: 10px; width: 10px; height: 8px"></span> Lime</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: green; min-width: 10px; width: 10px; height: 8px"></span> Hijau</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: cyan; min-width: 10px; width: 10px; height: 8px"></span> Cyan</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: blue; min-width: 10px; width: 10px; height: 8px"></span> Biru</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: purple; min-width: 10px; width: 10px; height: 8px"></span> Ungu</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: magenta; min-width: 10px; width: 10px; height: 8px"></span> Magenta</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: brown; min-width: 10px; width: 10px; height: 8px"></span> Cokelat</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: grey; min-width: 10px; width: 10px; height: 8px"></span> Abu-Abu</a></li>\
+															<li><a class="posterior-eye-color-picker" href="#"><span class="color-picker" style="border: 1px solid black; padding: 0 8px; margin: 4px; background-color: black; min-width: 10px; width: 10px; height: 8px"></span> Hitam</a></li>\
+														</ul>\
+													</div>\
+													<a class="btn btn-default btn-sm" id="posterior-eye-eraser">Hapus</a>\
+													<a class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-clear-posterior">Hapus Semua</a>\
+												</div>\
+											</div>\
+										</div>\
+										<div class="modal" id="modal-clear-posterior" tabindex="-1" role="dialog">\
+											<div class="modal-dialog modal-sm" role="document">\
+												<div class="modal-content">\
+													<div class="modal-header">\
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+														<h4 class="modal-title">Konfirmasi Hapus</h4>\
+													</div>\
+													<div class="modal-body">\
+														<p>Hapus semua gambar posterior?</p>\
+													</div>\
+													<div class="modal-footer">\
+														<button type="button" class="btn btn-default" id="posterior-eye-clear">Ya</button>\
+														<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>\
+													</div>\
+												</div>\
+											</div>\
+										</div>\
 									</div>\
 								</div>\
-							</div>\
+								<div class="row">\
+									<div class="col-sm-12">\
+										<div class="card-header">\
+											<div class="card-title"><h5><b>Diagnosis (A)</b></h5>\
+											</div>\
+										</div>\
+										<div class="form-group form-group-default required typehead" id="sample-three">\
+											<label>Diagnosa Primer</label>\
+											<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
+										</div>\
+									</div>\
+									<div class="col-sm-12">\
+										<div class="form-group form-group-default input-group">\
+											<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
+											<label class="label-lg">Diagnosa Sekunder</label>\
+											<input onkeyup="ToUpper(this)" type="text" class="form-control">\
+											<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
+										</div>\
+									</div>\
+									<div class="col-sm-12">\
+										<div class="card-header">\
+											<div class="card-title"><h5><b>Rencana Terapi (P)</b></h5>\
+											</div>\
+										</div>\
+										<div class="form-group form-group-default input-group">\
+											<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
+											<label class="label-lg">Tindakan (ICD9CM)</label>\
+											<input onkeyup="ToUpper(this)" type="text" class="form-control">\
+											<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
+										</div>\
+									</div>\
+									<div class="col-sm-12">\
+										<div class="card-header">\
+											<div class="card-title"><h5><b>Tindakan RS</b></h5>\
+											</div>\
+										</div>\
+										<div class="form-group form-group-default input-group">\
+											<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
+											<label class="label-lg">Tindakan (Tarif)</label>\
+											<input onkeyup="ToUpper(this)" type="text" class="form-control">\
+											<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
+										</div>\
+									</div>\
+								</div>\
+								<div  class="row">\
+									<div class="pull-right">\
+										<div class="col-xs-12">\
+											<button class="btn btn-primary btn-lg"  type="submit" id="btnsimpan" name="btnsimpan" > Simpan</button>\
+											<button class="btn btn-info btn-lg"  type="button" id="batal" >Batal</button>\
+											</button>\
+										</div>\
+									</div>\
+								</div>\
 							</form>\
 						</div>\
 					</div>\
@@ -555,7 +825,7 @@
 				$("#subpage").append(tes);
 				//reload datepicker
 				$('#dtptanggal').datepicker();
-				
+
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
 					document.getElementById("subpage").innerHTML="";
@@ -563,78 +833,245 @@
 					//location.reload(); 
 				});
 				
-				var $kanvaskajumum = $('#kanvaskajumum.kanvaskajumum-input').szBlankCanvas({
+				
+	
+				$('.oftalmologis-arrow-mode').each(function(){
+					var self = $(this);
+					var mode = $(this).attr('arrow-mode');
+					var thumbnail = new szCursor();
+					thumbnail.getArrowCursorImage(mode, 16, 0.1, 'E', function(base64Image){
+						var bgImg = 'url(' + base64Image + ')';
+
+						self.css('background-image', bgImg);
+						self.css('background-position', '10px 0px');
+						//self.css('background-position', 'center');
+						self.css('background-repeat', 'no-repeat');
+						self.css('display', 'inline-block');
+
+						self.find('.arrow-image').css('background-image', bgImg);
+						self.find('.arrow-image').css('background-position', '10px 0px 0px 0px');
+						self.find('.arrow-image').css('background-repeat', 'no-repeat');
+						self.find('.arrow-image').css('display', 'inline');
+						self.find('.arrow-image').css('position', 'relative');
+						self.find('.arrow-image').css('top', '7px');
+						self.find('.arrow-image').css('margin-left', '10px');
+						self.find('.arrow-image').css('vertical-align', 'top');
+					});
+				});
+				var setArrowDirection = function(mode){
+					$('.oftalmologis-arrow-direction').each(function(){
+						var self = $(this);
+						var direction = $(this).attr('arrow-direction');
+						var thumbnail = new szCursor();
+						thumbnail.getArrowCursorImage(mode, 24, 0.2, direction, function(base64Image){
+							var bgImg = 'url(' + base64Image + ')';
+
+							self.css('background-image', bgImg);
+							self.css('background-position', 'center');
+							self.css('background-repeat', 'no-repeat');
+							self.css('display', 'inline-block');
+
+							self.find('.arrow-image').css('display', 'inline');
+							self.find('.arrow-image').css('position', 'relative');
+							self.find('.arrow-image').css('top', '7px');
+							self.find('.arrow-image').css('margin-left', '10px');
+							self.find('.arrow-image').css('vertical-align', 'top');
+						});
+					});
+				}
+
+				var setCurrentArrowMode = function(mode){
+					var self = $('.oftalmologis-current-mode');
+					var direction = self.attr('arrow-direction');
+					var thumbnail = new szCursor();
+					thumbnail.getArrowCursorImage(mode, 24, 0.2, 'E', function(base64Image){
+						var bgImg = 'url(' + base64Image + ')';
+
+						self.css('background-image', bgImg);
+						self.css('background-position', '0px 0px; width: 24px; height: 24px');
+						self.css('background-repeat', 'no-repeat');
+						self.css('display', 'inline-block');
+
+						self.find('.arrow-image').css('display', 'inline');
+						self.find('.arrow-image').css('position', 'relative');
+						self.find('.arrow-image').css('top', '7px');
+						self.find('.arrow-image').css('margin-left', '10px');
+						self.find('.arrow-image').css('vertical-align', 'top');
+					});
+				}
+
+				var $posteriorEye = $('#posterior-eye_<?php echo $timestamp; ?>.posterior-eye-input').szPosteriorEyeCanvas({
+					responsive: true,
+					//canDraw: true,
+				});
+
+				var $anteriorEye = $('#anterior-eye_<?php echo $timestamp; ?>.anterior-eye-input').szAnteriorEyeCanvas({
+					responsive: true,
+					canDraw: true,
+				});
+				
+				var $oftalmologis = $('#oftalmologis_<?php echo $timestamp; ?>.oftalmologis-input').szOftalmologisCanvas({
 					responsive: true,
 					canDraw: true,
 				});
 
 				/* Slider */
-				$('#kanvaskajumum-slider').change(function(){
-					var pointSize = $	(this).val();
+				$('#posterior-eye-slider').change(function(){
+					var pointSize = $(this).val();
 					var valueLabel = $(this).parents('.slider-container').find('.slider-value strong').html(pointSize);
 					
-					$kanvaskajumum.szBlankCanvas('setPointSize', pointSize);
+					$posteriorEye.szPosteriorEyeCanvas('setPointSize', pointSize);
+				});
+
+				$('#anterior-eye-slider').change(function(){
+					var pointSize = $(this).val();
+					var valueLabel = $(this).parents('.slider-container').find('.slider-value strong').html(pointSize);
+					
+					$anteriorEye.szAnteriorEyeCanvas('setPointSize', pointSize);
+				});
+
+				$('#oftalmologis-slider').change(function(){
+					var pointSize = $(this).val();
+					var valueLabel = $(this).parents('.slider-container').find('.slider-value strong').html(pointSize);
+					
+					$oftalmologis.szOftalmologisCanvas('setPointSize', pointSize);
 				});
 
 				/* Brush */
-				$('#kanvaskajumum-brush').click(function(){
-					$kanvaskajumum.szBlankCanvas('setMode', 'brush');
+				$('#posterior-eye-brush').click(function(){
+					$posteriorEye.szPosteriorEyeCanvas('setMode', 'brush');
+				});
+
+				$('#anterior-eye-brush').click(function(){
+					$anteriorEye.szAnteriorEyeCanvas('setMode', 'brush');
+				});
+				
+				$('#oftalmologis-brush').click(function(){
+					$oftalmologis.szOftalmologisCanvas('setMode', 'brush');
 				});
 
 				/* Text */
+				$('#posterior-eye-text').click(function(){
+					$posteriorEye.szPosteriorEyeCanvas('setMode', 'text');
+				});
 
-				$('#kanvaskajumum-text').click(function(){
-					$kanvaskajumum.szBlankCanvas('setMode', 'text');
+				$('#anterior-eye-text').click(function(){
+					$anteriorEye.szAnteriorEyeCanvas('setMode', 'text');
+				});
+
+				$('#oftalmologis-text').click(function(){
+					$oftalmologis.szOftalmologisCanvas('setMode', 'text');
 				});
 
 				/* Eraser */
-				$('#kanvaskajumum-eraser').click(function(){
-					$kanvaskajumum.szBlankCanvas('setMode', 'eraser');
+				$('#posterior-eye-eraser').click(function(){
+					$posteriorEye.szPosteriorEyeCanvas('setMode', 'eraser');
+				});
+
+				$('#anterior-eye-eraser').click(function(){
+					$anteriorEye.szAnteriorEyeCanvas('setMode', 'eraser');
+				});
+
+				$('#oftalmologis-eraser').click(function(){
+					$oftalmologis.szOftalmologisCanvas('setMode', 'eraser');
 				});
 
 				/* Color Picker */
-				$('.kanvaskajumum-color-picker').click(function(e){
+				$('.posterior-eye-color-picker').click(function(e){
 					e.preventDefault();
 					var color = $(this).find('.color-picker').css('background-color');
-					$kanvaskajumum.szBlankCanvas('setColor', color);
-					$('#kanvaskajumum-current-color').css('background-color', color);
+					$posteriorEye.szPosteriorEyeCanvas('setColor', color);
+					$('#posterior-eye-current-color').css('background-color', color);
 				});
 
+				$('.anterior-eye-color-picker').click(function(e){
+					e.preventDefault();
+					var color = $(this).find('.color-picker').css('background-color');
+					$anteriorEye.szAnteriorEyeCanvas('setColor', color);
+					$('#anterior-eye-current-color').css('background-color', color);
+				});
+
+				$('.oftalmologis-color-picker').click(function(e){
+					e.preventDefault();
+					var color = $(this).find('.color-picker').css('background-color');
+					$oftalmologis.szOftalmologisCanvas('setColor', color);
+					$('#oftalmologis-current-color').css('background-color', color);
+				});
+				
 				/* Clear */
-				$('#kanvaskajumum-clear').click(function(){
-					$kanvaskajumum.szBlankCanvas('clearCanvas');
+				$('#posterior-eye-clear').click(function(){
+					$posteriorEye.szPosteriorEyeCanvas('clearCanvas');
+					$(this).parents('.modal').modal('hide');
+				});
+
+				$('#anterior-eye-clear').click(function(){
+					$anteriorEye.szAnteriorEyeCanvas('clearCanvas');
 					$(this).parents('.modal').modal('hide');
 				});
 				
-				$(".cmbagama").select2();
+				$('#oftalmologis-clear').click(function(){
+					$oftalmologis.szOftalmologisCanvas('clearCanvas');
+					$(this).parents('.modal').modal('hide');
+				});
+				
+				/* Oftalmologis Specific Arrow Functions */
+				$('.oftalmologis-arrow-direction').click(function(e){
+					e.preventDefault();
+					var arrowDirection = $(this).attr('arrow-direction');
+					$oftalmologis.szOftalmologisCanvas('setArrowDirection', arrowDirection);
+				});
+
+				$('.oftalmologis-arrow').click(function(e){
+					e.preventDefault();
+					$oftalmologis.szOftalmologisCanvas('setMode', 'arrow');
+				});
+
+				$('.oftalmologis-arrow-mode').click(function(e){
+					e.preventDefault();
+					var arrowMode = $(this).attr('arrow-mode');
+					$oftalmologis.szOftalmologisCanvas('setArrowMode', arrowMode);
+					setArrowDirection(arrowMode);
+				});
+
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "{{ url('Polianak/auto?namaicd10=%QUERY') }}",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 				
 			}else if (document.getElementById("btninput").value == "linktindakanrs")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Equipment\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Equipment</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Equipment</label>\
-										<input type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal</label>\
@@ -658,18 +1095,12 @@
 						</div>\
 					</div>\
 				</div>\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Obat Ruangan\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Obat Ruangan</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
@@ -678,7 +1109,7 @@
 											<div class="form-group form-group-default form-group-default-select2">\
 												<label class="">Pilih Depo</label>\
 												<select class="cmb full-width" data-placeholder="Pilih Depo" data-init-plugin="select2" name="cmbdepo">\
-													<optgroup>\
+													<optgroup label="Pilihan">\
 														<option value=""></option>\
 														<option value="UTAMA">UTAMA</option>\
 														<option value="SEKUNDER">SEKUNDER</option>\
@@ -693,11 +1124,11 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Obat</label>\
-										<input type="text" class="form-control" name="txtobat" id="txtobat" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtobat" id="txtobat" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Satuan</label>\
-										<input type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
@@ -710,7 +1141,7 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Qty</label>\
@@ -750,18 +1181,12 @@
 			}else if (document.getElementById("btninput").value == "linkrujuk")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data Rujuk IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjrujuk" id="frmirjrujuk" method="post" class="frmirjrujuk" onsubmit="simpanrujuk();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
@@ -770,7 +1195,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Instalasi</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbinstalasi">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -780,7 +1205,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Poli</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -789,13 +1214,13 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>No. SEP</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal Rujukan</label>\
@@ -1043,4 +1468,19 @@
  }
  </script>
  
+ <script type="text/javascript">
+
+    function ToUpper(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+    }
+
+    function ToLower(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toLowerCase();
+    }
+
+</script>
 {% endblock %}

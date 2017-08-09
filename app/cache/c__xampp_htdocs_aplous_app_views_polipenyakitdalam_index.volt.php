@@ -129,6 +129,7 @@
 				<?php } ?>            
 			</ul>
           </li>
+		  <!--
 		  <li class="">
             <a href="rekammedis" class="detailed">
               <span class="title">Rekam Medis</span>
@@ -138,6 +139,7 @@
 				<i class="fa fa-check-square-o"></i>
 			</span>
           </li>
+		  -->
 		  <li class="">
             <a href="master" class="detailed">
               <span class="title">MD</span>
@@ -191,7 +193,7 @@
         <div class=" pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
-              <img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">
+              <!--<img src="<?= $this->url->get('assets/img/logoMpm.png') ?>" alt="logo" data-src="<?= $this->url->get('assets/img/logoMpm.png') ?>" data-src-retina="<?= $this->url->get('assets/img/logoMpm.png') ?>" width="78" height="22">-->
             </div>
              </div>
         </div>
@@ -242,8 +244,9 @@
           <!-- START SECONDARY SIDEBAR MENU-->
           <nav class="secondary-sidebar padding-30" style="height:100%" id="nav">
 			<div style="color: #EFF4F9;" class="form-group">
-			<label>RM</label>
-			<input name="rmid" style="color: #43484E;" type="text" value="1">
+			<center><label>POLI PENYAKIT DALAM</label></center>
+			<label class="hidden">RM</label>
+			<input class="hidden" name="rmid" style="color: #43484E;" type="text" value="1">
 			</div>
 			<div id="div_input" style="display:none">
             <button id="btninput" value="" class="btn btn-complete btn-block m-b-30">input baru</button>
@@ -532,26 +535,20 @@
 			if (document.getElementById("btninput").value == "linkdiagnosa")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data diagnosa IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjdiagnosa" id="frmirjdiagnosa" method="post" class="frmirjdiagnosa" onsubmit="simpandiagnosa();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
-									<div class="form-group form-group-default required ">\
+									<div class="form-group form-group-default required typehead" id="sample-three">\
 										<label>ICD 10</label>\
-										<input type="text" class="form-control" name="txticd10" id="txticd10" required>\
+										<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
@@ -561,8 +558,8 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Jenis</label>\
-										<select class="cmbjenis full-width" data-placeholder="Pilih Jenis" data-init-plugin="select2" name="cmbjenis">\
-											<optgroup>\
+										<select class="cmb full-width" data-placeholder="Pilih Jenis" data-init-plugin="select2" name="cmbjenis">\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -596,7 +593,7 @@
 				
 				//reload datepicker
 				$('#dtptangga').datepicker();
-					$(".cmbjenis").select2();
+					$(".cmb").select2();
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
@@ -604,33 +601,39 @@
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
+				
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "<?= $this->url->get('Polianak/auto?namaicd10=%QUERY') ?>",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 			}else if (document.getElementById("btninput").value == "linkcatatan")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">PENGKAJIAN AWAL DOKTER UMUM\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>PENGKAJIAN AWAL DOKTER UMUM</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjtindakan" id="frmirjtindakan" method="post" class="frmirjtindakan" onsubmit="simpantindakan();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Keadaan Umum\
-									</div>\
-									<div class="tools">\
-										<a class="collapse" href="javascript:;"></a>\
-										<a class="config" data-toggle="modal" href="#grid-config"></a>\
-										<a class="reload" href="javascript:;"></a>\
-										<a class="remove" href="javascript:;"></a>\
+								<div class="card-header">\
+									<div class="card-title"><h5><b>Keadaan Umum</b></h5>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
@@ -663,12 +666,12 @@
 								</div>\
 							</div>\
 							<div class="form-group">\
-									<div class="panel panel-transparent">\
-										<div class="panel-heading"><strong>Canvas</strong></div>\
-										<div class="panel-body container-fix">\
+									<div class="card card-transparent">\
+										<div class="card-header"><strong>Canvas</strong></div>\
+										<div class="card-block container-fix">\
 											<div id="kanvaskajumum" class="kanvaskajumum-input"></div>\
 										</div>\
-										<div class="panel-body">\
+										<div class="card-block">\
 											<div class="col-md-4 col-sm-12 col-xs-12">\
 												<span class="slider-container">\
 													<p>Ukuran pena / penghapus / text:</p>\
@@ -723,22 +726,14 @@
 									</div>\
 								</div>\
 							<div class="row">\
-								<div class="panel-heading">\
-									<div class="panel-title">Diagnosis (A)\
+								<div class="card-header">\
+									<div class="card-title"><h5><b>Diagnosis (A)</b></h5>\
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
-									<div class="form-group form-group-default form-group-default-select2">\
-										<label class="label-lg">Diagnosis Primer</label>\
-										<select class="cmbagama full-width" data-placeholder="Pilih ICD10" data-init-plugin="select2" name="cmbagama">\
-											<optgroup label="Alaskan/Hawaiian Time Zone">\
-												<option value="">-</option>\
-												<option value="ISLAM">ISLAM</option>\
-												<option value="HINDU">HINDU</option>\
-												<option value="BUDHA">BUDHA</option>\
-												<option value="KRISTEN">KRISTEN</option>\
-											</optgroup>\
-										</select>\
+									<div class="form-group form-group-default required typehead" id="sample-three">\
+										<label>Diagnosa Primer</label>\
+										<input onkeyup="ToUpper(this)" class="typeahead form-control" type="text" placeholder="ICD 10" name="txticd10" id="txticd10" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
@@ -750,8 +745,8 @@
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Rencana Terapi (P)\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>Rencana Terapi (P)</b></h5>\
 										</div>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
@@ -762,8 +757,8 @@
 									</div>\
 								</div>\
 								<div class="col-sm-12">\
-									<div class="panel-heading">\
-										<div class="panel-title">Tindakan RS\
+									<div class="card-header">\
+										<div class="card-title"><h5><b>Tindakan RS</b></h5>\
 										</div>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
@@ -842,24 +837,34 @@
 					$(this).parents('.modal').modal('hide');
 				});
 				
-				$(".cmbagama").select2();
+				/* autocompleteicd10 */
+				var icd10 = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('namaicd10'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: "<?= $this->url->get('Polianak/auto?namaicd10=%QUERY') ?>",
+						wildcard: '%QUERY'
+					}
+				});
+				icd10.initialize();
+				$('.typeahead').typeahead({
+					hint: false,
+				}, {
+					name: 'txticd10',
+					source: icd10.ttAdapter(),
+					limit: 10
+				});
 				
 			}else if (document.getElementById("btninput").value == "linktindakanrs")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Equipment\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Equipment</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
@@ -894,18 +899,12 @@
 						</div>\
 					</div>\
 				</div>\
-				<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Obat Ruangan\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Obat Ruangan</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
 							<div class="row">\
 								<div class="col-sm-6">\
@@ -913,8 +912,8 @@
 										<div class="col-sm-9">\
 											<div class="form-group form-group-default form-group-default-select2">\
 												<label class="">Pilih Depo</label>\
-												<select class="cmbdepo full-width" data-placeholder="Pilih Depo" data-init-plugin="select2" name="cmbdepo">\
-													<optgroup>\
+												<select class="cmb full-width" data-placeholder="Pilih Depo" data-init-plugin="select2" name="cmbdepo">\
+													<optgroup label="Pilihan">\
 														<option value=""></option>\
 														<option value="UTAMA">UTAMA</option>\
 														<option value="SEKUNDER">SEKUNDER</option>\
@@ -973,7 +972,7 @@
 				//reload datepicker
 				$('#dtptanggal').datepicker();
 				
-				$(".cmbdepo").select2();
+				$(".cmb").select2();
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
@@ -986,18 +985,12 @@
 			}else if (document.getElementById("btninput").value == "linkrujuk")
 			{
 				document.getElementById("subpage").innerHTML="";
-				var tes = '<div class="panel panel-transparent">\
-					<div class="panel-heading">\
-						<div class="panel-title">Input data Rujuk IRJ\
-						</div>\
-						<div class="tools">\
-							<a class="collapse" href="javascript:;"></a>\
-							<a class="config" data-toggle="modal" href="#grid-config"></a>\
-							<a class="reload" href="javascript:;"></a>\
-							<a class="remove" href="javascript:;"></a>\
+				var tes = '<div class="card card-transparent">\
+					<div class="card-header">\
+						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
 						</div>\
 					</div>\
-					<div class="panel-body">\
+					<div class="card-block">\
 						<div id="kotak">\
 							<form name="frmirjrujuk" id="frmirjrujuk" method="post" class="frmirjrujuk" onsubmit="simpanrujuk();return false;" enctype="multipart/form-data">\
 							<input class="hidden" type="text" name="txtrm" value="1" readonly="">\
@@ -1005,8 +998,8 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Instalasi</label>\
-										<select class="cmbinstalasi full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbinstalasi">\
-											<optgroup>\
+										<select class="cmb full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbinstalasi">\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -1015,8 +1008,8 @@
 									</div>\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Poli</label>\
-										<select class="cmbpoli full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">\
-											<optgroup>\
+										<select class="cmb full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -1061,8 +1054,7 @@
 				//reload datepicker
 				$('#dtptanggal').datepicker();
 				
-				$(".cmbsinstalasi").select2();
-				$(".cmbpoli").select2();
+				$(".cmb").select2();
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
