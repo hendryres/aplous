@@ -68,6 +68,7 @@
 	<?= $this->tag->javascriptInclude('fatma/szoftalmologiscanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/szblankcanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/hermite.js') ?>
+	<?= $this->tag->javascriptInclude('js/Underscore.js') ?>
   </body>
 	<script>
 	(function($){

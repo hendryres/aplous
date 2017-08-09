@@ -345,8 +345,10 @@
         //e.stopPropagation();
 		e.preventDefault();
 			var link =$(this).attr("id");
-			document.getElementById('div_input').style.display = 'block';
-			document.getElementById("list_patient").innerHTML="";
+			//document.getElementById('div_input').style.display = 'block';
+			$("#div_input").show()
+			//document.getElementById("list_patient").innerHTML="";
+			$('#list_patient').empty();
 			$("#btninput").val(link);
 			var emailList = $('#list_patient');
 			var idrm = $("input[name='rmid']").val();
@@ -413,8 +415,6 @@
 	$('body').on('click', '.item', function(e) {
         e.stopPropagation();
 		var btnid = $("#btninput").val();
-		if (document.getElementById("btninput").value == btnid)
-			{
 				var emailOpened = $('[data-email="opened"]');
 				var editorTemplate = {
 					"font-styles": function(locale) {
@@ -495,9 +495,6 @@
 
 				$('.item').removeClass('active');
 				$(this).addClass('active');
-			}
-		
-
     });
 
 	});
@@ -534,7 +531,6 @@
 	$(document).ready(function(){
 		$("#btninput").off("click").on("click", function(e){
 			var btninput = $("#btninput").val();
-			alert (btninput);
 			if  ( btninput == "linkdiagnosa")
 			{
 				document.getElementById("subpage").innerHTML="";
@@ -623,7 +619,7 @@
 					limit: 10
 				});
 				
-			}else if (document.getElementById("btninput").value == "linkcatatan")
+			}else if (btninput == "linkcatatan")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<div class="card card-transparent">\
@@ -859,7 +855,7 @@
 					limit: 10
 				});
 				
-			}else if (document.getElementById("btninput").value == "linktindakanrs")
+			}else if (btninput == "linktindakanrs")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
@@ -986,7 +982,7 @@
 				});
 				
 				
-			}else if (document.getElementById("btninput").value == "linkrujuk")
+			}else if (btninput == "linkrujuk")
 			{
 				document.getElementById("subpage").innerHTML="";
 				var tes = '<div class="card card-transparent">\
@@ -1067,7 +1063,7 @@
 					//location.reload(); 
 				});
 			}else{
-				alert(document.getElementById("btninput").value);
+				alert(btninput);
 				
 			}
 		});

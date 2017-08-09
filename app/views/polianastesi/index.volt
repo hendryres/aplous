@@ -106,8 +106,10 @@
         //e.stopPropagation();
 		e.preventDefault();
 			var link =$(this).attr("id");
-			document.getElementById('div_input').style.display = 'block';
-			document.getElementById("list_patient").innerHTML="";
+			$("#div_input").show();
+			$("#list_patient").empty();
+			//document.getElementById('div_input').style.display = 'block';
+			//document.getElementById("list_patient").innerHTML="";
 			$("#btninput").val(link);
 			var emailList = $('#list_patient');
 			var idrm = $("input[name='rmid']").val();
@@ -174,8 +176,6 @@
 	$('body').on('click', '.item', function(e) {
         e.stopPropagation();
 		var btnid = $("#btninput").val();
-		if (document.getElementById("btninput").value == btnid)
-			{
 				var emailOpened = $('[data-email="opened"]');
 				var editorTemplate = {
 					"font-styles": function(locale) {
@@ -256,9 +256,6 @@
 
 				$('.item').removeClass('active');
 				$(this).addClass('active');
-			}
-		
-
     });
 
 	});
@@ -294,9 +291,10 @@
 (function($){
 	$(document).ready(function(){
 		$("#btninput").off("click").on("click", function(e){
-			if (document.getElementById("btninput").value == "linkdiagnosa")
+			var btninput = $("#btninput").val();
+			if (btninput == "linkdiagnosa")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
@@ -359,7 +357,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -381,9 +379,9 @@
 					source: icd10.ttAdapter(),
 					limit: 10
 				});
-			}else if (document.getElementById("btninput").value == "linkcatatan")
+			}else if (btninput == "linkcatatan")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>PENGKAJIAN AWAL DOKTER ANASTESI</b></h5>\
@@ -675,7 +673,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -700,9 +698,9 @@
 					limit: 10
 				});
 				
-			}else if (document.getElementById("btninput").value == "linktindakanrs")
+			}else if (btninput == "linktindakanrs")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
 				<div class="card card-transparent">\
 					<div class="card-header">\
@@ -821,15 +819,15 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
 				
 				
-			}else if (document.getElementById("btninput").value == "linkrujuk")
+			}else if (btninput == "linkrujuk")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
@@ -903,12 +901,12 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
 			}else{
-				alert(document.getElementById("btninput").value);
+				alert(btninput);
 				
 			}
 		});

@@ -106,8 +106,10 @@
         //e.stopPropagation();
 		e.preventDefault();
 			var link =$(this).attr("id");
-			document.getElementById('div_input').style.display = 'block';
-			document.getElementById("list_patient").innerHTML="";
+			//document.getElementById('div_input').style.display = 'block';
+			$("#div_input").show()
+			//document.getElementById("list_patient").innerHTML="";
+			$('#list_patient').empty();
 			$("#btninput").val(link);
 			var emailList = $('#list_patient');
 			var idrm = $("input[name='rmid']").val();
@@ -174,8 +176,6 @@
 	$('body').on('click', '.item', function(e) {
         e.stopPropagation();
 		var btnid = $("#btninput").val();
-		if (document.getElementById("btninput").value == btnid)
-			{
 				var emailOpened = $('[data-email="opened"]');
 				var editorTemplate = {
 					"font-styles": function(locale) {
@@ -256,9 +256,6 @@
 
 				$('.item').removeClass('active');
 				$(this).addClass('active');
-			}
-		
-
     });
 
 	});
@@ -295,9 +292,9 @@
 	$(document).ready(function(){
 		$("#btninput").off("click").on("click", function(e){
 			var btninput = $("#btninput").val();
-			if  ( btninput == "linkdiagnosa")
+			if  ( btninput == "linkdiagnosa" )
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
@@ -360,7 +357,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -385,7 +382,7 @@
 				
 			}else if (btninput == "linkcatatan")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>PENGKAJIAN AWAL DOKTER ANAK</b></h5>\
@@ -553,7 +550,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -621,7 +618,7 @@
 				
 			}else if (btninput == "linktindakanrs")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
 				<div class="card card-transparent">\
 					<div class="card-header">\
@@ -740,7 +737,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -748,7 +745,7 @@
 				
 			}else if (btninput == "linkrujuk")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
@@ -822,7 +819,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});

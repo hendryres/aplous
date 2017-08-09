@@ -68,6 +68,7 @@
 	<?= $this->tag->javascriptInclude('fatma/szoftalmologiscanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/szblankcanvas.js') ?>
 	<?= $this->tag->javascriptInclude('fatma/hermite.js') ?>
+	<?= $this->tag->javascriptInclude('js/Underscore.js') ?>
   </body>
 	<script>
 	(function($){
@@ -344,8 +345,10 @@
         //e.stopPropagation();
 		e.preventDefault();
 			var link =$(this).attr("id");
-			document.getElementById('div_input').style.display = 'block';
-			document.getElementById("list_patient").innerHTML="";
+			$("#div_input").show();
+			$("#list_patient").empty();
+			//document.getElementById('div_input').style.display = 'block';
+			//document.getElementById("list_patient").innerHTML="";
 			$("#btninput").val(link);
 			var emailList = $('#list_patient');
 			var idrm = $("input[name='rmid']").val();
@@ -412,8 +415,6 @@
 	$('body').on('click', '.item', function(e) {
         e.stopPropagation();
 		var btnid = $("#btninput").val();
-		if (document.getElementById("btninput").value == btnid)
-			{
 				var emailOpened = $('[data-email="opened"]');
 				var editorTemplate = {
 					"font-styles": function(locale) {
@@ -494,9 +495,6 @@
 
 				$('.item').removeClass('active');
 				$(this).addClass('active');
-			}
-		
-
     });
 
 	});
@@ -532,9 +530,10 @@
 (function($){
 	$(document).ready(function(){
 		$("#btninput").off("click").on("click", function(e){
-			if (document.getElementById("btninput").value == "linkdiagnosa")
+			var btninput = $("#btninput").val();
+			if (btninput == "linkdiagnosa")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data diagnosa IRJ</b></h5>\
@@ -552,14 +551,14 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Jenis</label>\
 										<select class="cmbjenis full-width" data-placeholder="Pilih Jenis" data-init-plugin="select2" name="cmbjenis">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -597,7 +596,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -619,9 +618,9 @@
 					source: icd10.ttAdapter(),
 					limit: 10
 				});
-			}else if (document.getElementById("btninput").value == "linkcatatan")
+			}else if (btninput == "linkcatatan")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>PENGKAJIAN AWAL DOKTER ANASTESI</b></h5>\
@@ -639,33 +638,33 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default ">\
 										<label>Diagnosis Pra Operasi</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Rencana Tindakan Operasi</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Tanggal & Jam Tindakan Operasi / Kedokteran</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Tinggi</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default ">\
 										<label>Berat</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Tanggal & Jam Dibuat</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>DPJP</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 								</div>\
 							</div>\
@@ -677,11 +676,11 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Penyakit Dahulu</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Anastesi</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="label-lg">Riwayat Alergi</label>\
@@ -697,7 +696,7 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required">\
 										<label>Riwayat Penyakit Keluarga</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="label-lg">Riwayat Merokok</label>\
@@ -711,11 +710,11 @@
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Makan Terakhir, Jam</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default ">\
 										<label>Minum Terakhir, Jam</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 								</div>\
 							</div>\
@@ -727,29 +726,29 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default">\
 										<label>Gigi</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Jalan Nafas</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Jantung</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default">\
 										<label>Paru</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Ekstremitas</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Lain-lain</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat"></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat"></textarea>\
 									</div>\
 								</div>\
 							</div>\
@@ -761,25 +760,25 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default">\
 										<label>Tekanan Darah</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/x">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/x">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Frekuensi Nadi</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/Menit">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/Menit">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Frekuensi Nafas</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/Menit">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="x/Menit">\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default">\
 										<label>Suhu</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="&deg;C">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="&deg;C">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Skor Nyeri</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="Skor Nyeri">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" placeholder="Skor Nyeri">\
 									</div>\
 								</div>\
 							</div>\
@@ -791,19 +790,19 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default">\
 										<label>Laboratorium</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>EKG</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Radiologi</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Lain-lain</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="label-lg">Skor Nyeri</label>\
@@ -829,15 +828,15 @@
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Klasifikasi ASA</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Catatan Khusus</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 									<div class="form-group form-group-default">\
 										<label>Obat anestesi yang digunakan</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep">\
 									</div>\
 								</div>\
 							</div>\
@@ -845,7 +844,7 @@
 								<div class="col-sm-12">\
 									<div class="form-group form-group-default required">\
 										<label>Pemeriksaan Fisik (O)</label>\
-										<textarea class="form-control" style="height:100px" name="txtalamat" required></textarea>\
+										<textarea onkeyup="ToUpper(this)" class="form-control" style="height:100px" name="txtalamat" required></textarea>\
 									</div>\
 								</div>\
 							</div>\
@@ -864,7 +863,7 @@
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Diagnosa Sekunder</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
@@ -876,7 +875,7 @@
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Tindakan (ICD9CM)</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
@@ -888,7 +887,7 @@
 									<div class="form-group form-group-default input-group">\
 										<span class="input-group-addon"><i class="fa fa-instagram"></i></span>\
 										<label class="label-lg">Tindakan (Tarif)</label>\
-										<input type="email" class="form-control">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control">\
 										<span class="input-group-addon default"><i class="fa fa-align-justify"></i></span>\
 									</div>\
 								</div>\
@@ -913,7 +912,7 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
@@ -938,9 +937,9 @@
 					limit: 10
 				});
 				
-			}else if (document.getElementById("btninput").value == "linktindakanrs")
+			}else if (btninput == "linktindakanrs")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<form name="frmirjequipment" id="frmirjequipment" method="post" class="frmirjequipment" onsubmit="simpanequipment();return false;" enctype="multipart/form-data">\
 				<div class="card card-transparent">\
 					<div class="card-header">\
@@ -954,15 +953,15 @@
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Equipment</label>\
-										<input type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtequipment" id="txtequipment" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal</label>\
-										<input type="text" class="form-control" data-date-format="yyyy-mm-dd" placeholder="Pilih Tanggal" name="dtptanggal" id="dtptanggal">\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" data-date-format="yyyy-mm-dd" placeholder="Pilih Tanggal" name="dtptanggal" id="dtptanggal">\
 										<span class="input-group-addon">\
 											<i class="fa fa-calendar"></i>\
 										</span>\
@@ -996,7 +995,7 @@
 											<div class="form-group form-group-default form-group-default-select2">\
 												<label class="">Pilih Depo</label>\
 												<select class="cmb full-width" data-placeholder="Pilih Depo" data-init-plugin="select2" name="cmbdepo">\
-													<optgroup>\
+													<optgroup label="Pilihan">\
 														<option value=""></option>\
 														<option value="UTAMA">UTAMA</option>\
 														<option value="SEKUNDER">SEKUNDER</option>\
@@ -1011,11 +1010,11 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Obat</label>\
-										<input type="text" class="form-control" name="txtobat" id="txtobat" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtobat" id="txtobat" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Satuan</label>\
-										<input type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtsatuan" id="txtsatuan" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
@@ -1028,7 +1027,7 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>Qty</label>\
@@ -1059,15 +1058,15 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
 				
 				
-			}else if (document.getElementById("btninput").value == "linkrujuk")
+			}else if (btninput == "linkrujuk")
 			{
-				document.getElementById("subpage").innerHTML="";
+				$("#subpage").empty();
 				var tes = '<div class="card card-transparent">\
 					<div class="card-header">\
 						<div class="card-title"><h5><b>Input data Rujuk IRJ</b></h5>\
@@ -1082,7 +1081,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Instalasi</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Instalasi" data-init-plugin="select2" name="cmbinstalasi">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -1092,7 +1091,7 @@
 									<div class="form-group form-group-default form-group-default-select2">\
 										<label class="">Poli</label>\
 										<select class="cmb full-width" data-placeholder="Pilih Poli" data-init-plugin="select2" name="cmbpoli">\
-											<optgroup>\
+											<optgroup label="Pilihan">\
 												<option value=""></option>\
 												<option value="UTAMA">UTAMA</option>\
 												<option value="SEKUNDER">SEKUNDER</option>\
@@ -1101,13 +1100,13 @@
 									</div>\
 									<div class="form-group form-group-default required ">\
 										<label>No. SEP</label>\
-										<input type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtnosep" id="txtnosep" required>\
 									</div>\
 								</div>\
 								<div class="col-sm-6">\
 									<div class="form-group form-group-default required ">\
 										<label>Dokter</label>\
-										<input type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
+										<input onkeyup="ToUpper(this)" type="text" class="form-control" name="txtdokter" id="txtdokter" required>\
 									</div>\
 									<div class="form-group form-group-default input-group">\
 										<label>Tanggal Rujukan</label>\
@@ -1141,12 +1140,12 @@
 				
 				//tombol batal untuk reload div view
 				$("#batal").off("click").on("click", function(e){
-					document.getElementById("subpage").innerHTML="";
+					$("#subpage").empty();
 					$("#subpage").load('tindakanirj #view');
 					//location.reload(); 
 				});
 			}else{
-				alert(document.getElementById("btninput").value);
+				alert(btninput);
 				
 			}
 		});
@@ -1354,6 +1353,22 @@
             });
  }
  </script>
+
+ <script type="text/javascript">
+
+    function ToUpper(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toUpperCase();
+    }
+
+    function ToLower(ctrl)
+    {  
+		var t = ctrl.value;
+		ctrl.value = t.toLowerCase();
+    }
+
+</script>
  
 
         </div>
